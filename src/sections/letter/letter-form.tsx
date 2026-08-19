@@ -106,7 +106,7 @@ export function LetterForm({
             />
           </Stack>
 
-          <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} alignItems={{ md: 'center' }}>
+          <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} sx={{ alignItems: 'center' }}>
             <Box>
               <Typography variant="body2" sx={{ mb: 1, color: 'text.secondary' }}>
                 نوع نامه
@@ -171,7 +171,7 @@ export function LetterForm({
             />
           </Box>
 
-          <Stack direction="row" spacing={1.5} justifyContent="flex-start">
+          <Stack direction="row" spacing={1.5} sx={{ justifyContent: "flex-start" }}>
             <Button type="submit" variant="contained" color="inherit">
               {submitLabel}
             </Button>

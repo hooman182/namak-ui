@@ -25,62 +25,70 @@ import { DashboardContent } from 'src/layouts/dashboard';
 import { Iconify } from 'src/components/iconify';
 import { Scrollbar } from 'src/components/scrollbar';
 
+import * as z from "zod";
+import Form from '@/providers/form-provider';
+import { FormField } from '@/components/composite/form-field';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from '@tanstack/react-query';
+
 // ----------------------------------------------------------------------
 
-type OrgFormState = {
-  name: string;
-  code: string;
-  contactPerson: string;
-  phone: string;
-};
+const schema = z.object({
+  place: z.string(),
+  address: z.string(),
+  description: z.string(),
+});
 
-const emptyForm: OrgFormState = { name: '', code: '', contactPerson: '', phone: '' };
+type FormValues = z.infer<typeof schema>;
 
 export function OrganizationListView() {
+
+  const method = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      place: "",
+      address: "",
+      description: "",
+    }
+  })
+
   const { organizations, addOrganization, updateOrganization, deleteOrganization } = useData();
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingOrg, setEditingOrg] = useState<Organization | null>(null);
-  const [form, setForm] = useState<OrgFormState>(emptyForm);
-  const [error, setError] = useState('');
 
   const openCreate = useCallback(() => {
     setEditingOrg(null);
-    setForm(emptyForm);
-    setError('');
     setDialogOpen(true);
   }, []);
 
   const openEdit = useCallback((org: Organization) => {
     setEditingOrg(org);
-    setForm({
-      name: org.name,
-      code: org.code ?? '',
-      contactPerson: org.contactPerson ?? '',
-      phone: org.phone ?? '',
-    });
-    setError('');
     setDialogOpen(true);
   }, []);
 
-  const handleSave = useCallback(() => {
-    if (!form.name.trim()) {
-      setError('نام سازمان الزامی است');
-      return;
-    }
-    const data = {
-      name: form.name.trim(),
-      code: form.code.trim() || undefined,
-      contactPerson: form.contactPerson.trim() || undefined,
-      phone: form.phone.trim() || undefined,
-    };
-    if (editingOrg) {
-      updateOrganization(editingOrg.id, data);
-    } else {
-      addOrganization(data);
-    }
-    setDialogOpen(false);
-  }, [addOrganization, editingOrg, form, updateOrganization]);
+  const { handleSubmit } = method
+
+  const { mutateAsync: createPlaceMutate } = useMutation({
+    mutationKey: ["register-place"],
+    mutationFn: async (data: FormValues) => {
+      if (editingOrg) {
+        await updateOrganization(editingOrg.id, data);
+      } else {
+        await addOrganization(data);
+      }
+    },
+    onSuccess: () => {
+      setDialogOpen(false);
+    },
+  })
+
+
+  const createPlaceSubmit = handleSubmit(async (data) => {
+    await createPlaceMutate(data);
+  })
+
 
   return (
     <DashboardContent>
@@ -144,35 +152,30 @@ export function OrganizationListView() {
       <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="sm">
         <DialogTitle>{editingOrg ? 'ویرایش سازمان' : 'افزودن سازمان'}</DialogTitle>
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
-          <TextField
-            label="نام سازمان"
-            value={form.name}
-            error={!!error}
-            helperText={error}
-            onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-          />
-          <TextField
-            label="کد / شناسه"
-            value={form.code}
-            onChange={(e) => setForm((prev) => ({ ...prev, code: e.target.value }))}
-          />
-          <TextField
-            label="مسئول"
-            value={form.contactPerson}
-            onChange={(e) => setForm((prev) => ({ ...prev, contactPerson: e.target.value }))}
-          />
-          <TextField
-            label="تلفن"
-            value={form.phone}
-            onChange={(e) => setForm((prev) => ({ ...prev, phone: e.target.value }))}
-          />
+          <Form onSubmit={createPlaceSubmit} method={method}>
+            <FormField
+              name="name"
+              label="نام سازمان"
+            // error={!!error}
+            // helperText={error}
+            />
+            <FormField
+              name='address'
+              label="آدرس "
+            />
+            <FormField
+              name="description"
+              label="توضیحات"
+            />
+            <DialogActions>
+              <Button onClick={() => setDialogOpen(false)}>انصراف</Button>
+              <Button variant="contained" type="submit">
+                ذخیره
+              </Button>
+            </DialogActions>
+          </Form>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setDialogOpen(false)}>انصراف</Button>
-          <Button variant="contained" onClick={handleSave}>
-            ذخیره
-          </Button>
-        </DialogActions>
+
       </Dialog>
     </DashboardContent>
   );

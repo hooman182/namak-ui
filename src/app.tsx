@@ -3,14 +3,10 @@ import 'src/global.css';
 import { useEffect } from 'react';
 import createCache from '@emotion/cache';
 import rtlPlugin from 'stylis-plugin-rtl';
-import { CacheProvider } from '@emotion/react';
-
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 import { usePathname } from 'src/routes/hooks';
 
-import { ThemeProvider } from 'src/theme/theme-provider';
+import AppProvider from './providers/app-provider';
 
 // ----------------------------------------------------------------------
 
@@ -30,13 +26,9 @@ export default function App({ children }: AppProps) {
   useRtlDocument();
 
   return (
-    <CacheProvider value={cacheRtl}>
-      <ThemeProvider themeOverrides={{ direction: 'rtl' }}>
-        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="fa">
-          {children}
-        </LocalizationProvider>
-      </ThemeProvider>
-    </CacheProvider>
+    <AppProvider>
+      {children}
+    </AppProvider>
   );
 }
 

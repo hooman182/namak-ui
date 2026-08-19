@@ -95,7 +95,7 @@ export function LetterDetailView() {
 
   return (
     <DashboardContent>
-      <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 3 }}>
+      <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between", mb: 3 }}>
         <Typography variant="h4">جزئیات نامه</Typography>
         <Stack direction="row" spacing={1}>
           <Button
@@ -119,7 +119,7 @@ export function LetterDetailView() {
 
       <Card sx={{ p: 3, mb: 3 }}>
         <Stack spacing={2}>
-          <Stack direction="row" spacing={1} alignItems="center">
+          <Stack direction="row" spacing={1} sx={{ alignItems: "center" }}>
             <Label color={letter.direction === 'incoming' ? 'info' : 'success'}>
               {LETTER_DIRECTION_LABELS[letter.direction]}
             </Label>
@@ -143,7 +143,7 @@ export function LetterDetailView() {
       <Stack spacing={2}>
         {letter.attachments.map((file) => (
           <Card key={file.id} sx={{ p: 2 }}>
-            <Stack direction="row" spacing={2} alignItems="center">
+            <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
               {isImageMime(file.mimeType) && file.previewUrl ? (
                 <Box
                   component="img"

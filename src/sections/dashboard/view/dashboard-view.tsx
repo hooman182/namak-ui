@@ -76,7 +76,7 @@ export function DashboardView() {
       </Grid>
 
       <Card sx={{ p: 3 }}>
-        <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 2 }}>
+        <Stack direction="row" sx={{ alignItems: "center", justifyContent: "space-between", mb: 2 }}>
           <Typography variant="h6">آخرین نامه‌ها</Typography>
           <Button size="small" onClick={() => router.push('/letters')}>
             مشاهده همه
@@ -97,7 +97,7 @@ export function DashboardView() {
                 }}
                 onClick={() => router.push(`/letters/${letter.id}`)}
               >
-                <Stack direction="row" alignItems="center" spacing={1} sx={{ mb: 0.5 }}>
+                <Stack direction="row" spacing={1} sx={{ alignItems: "center", mb: 0.5 }}>
                   <Label color={letter.direction === 'incoming' ? 'info' : 'success'} variant="soft">
                     {LETTER_DIRECTION_LABELS[letter.direction]}
                   </Label>
