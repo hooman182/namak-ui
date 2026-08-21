@@ -1,5 +1,7 @@
 import { apiAxios, endpoints } from "@/utils/axios";
 
+//---------------------------------------------------------------------------
+
 export default {
     list: () =>
         apiAxios.get(endpoints.letterImage.list),

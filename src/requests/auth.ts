@@ -1,5 +1,7 @@
 import { apiAxios, endpoints } from "@/utils/axios";
 
+//---------------------------------------------------------------------------
+
 export default {
     login: (data: { username: string; password: string }) =>
         apiAxios.post(endpoints.auth.create, data),

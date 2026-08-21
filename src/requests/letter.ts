@@ -2,6 +2,8 @@ import type { LetterFormData } from "@/types/letter";
 
 import { apiAxios, endpoints } from "@/utils/axios";
 
+//---------------------------------------------------------------------------
+
 export default {
     list: (params?: string) =>
         apiAxios.get(endpoints.letter.list, { params }),

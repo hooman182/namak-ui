@@ -1,5 +1,5 @@
 
-import { createContext, useContext, useState } from "react";
+import { useState, useContext, createContext } from "react";
 
 // ----------------------------------------------------------------------
 
@@ -32,8 +32,8 @@ const AuthContext = createContext<AuthContextType | null>(null)
 export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null)
 
-  const login = (user: User) => {
-    setUser(user)
+  const login = (credentials: User) => {
+    setUser(credentials)
   }
 
   const logout = () => {

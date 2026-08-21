@@ -5,9 +5,7 @@ import { CacheProvider } from '@emotion/react';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
-
 import { ThemeProvider } from 'src/theme/theme-provider';
-
 
 // ----------------------------------------------------------------------
 

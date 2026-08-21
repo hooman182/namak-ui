@@ -1,5 +1,7 @@
 import { apiAxios, endpoints } from "@/utils/axios";
 
+//---------------------------------------------------------------------------
+
 export default {
     list: (letterId: string) =>
         apiAxios.get(endpoints.letterAttachment.list(letterId)),
