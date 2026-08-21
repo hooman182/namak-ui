@@ -1,65 +1,111 @@
 import type { Organization } from 'src/types/organization';
 
-import { useState, useCallback } from 'react';
+import * as z from 'zod';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import Table from '@mui/material/Table';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import TableRow from '@mui/material/TableRow';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableHead from '@mui/material/TableHead';
-import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import TableContainer from '@mui/material/TableContainer';
+import LinearProgress from '@mui/material/LinearProgress';
 
-import { useData } from 'src/contexts/data-context';
-import { DashboardContent } from 'src/layouts/dashboard';
+import Form from 'src/providers/form-provider';
 
-import { Iconify } from 'src/components/iconify';
-import { Scrollbar } from 'src/components/scrollbar';
+import { FormField } from 'src/components/composite/form-field';
+
+import { useOrganizationMutation } from './use-organization-mutation';
 
 // ----------------------------------------------------------------------
 
+const schema = z.object({
+  place: z.string().min(1, 'نام سازمان الزامی است'),
+  address: z.string(),
+  description: z.string(),
+});
 
-export default () => {
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingOrg, setEditingOrg] = useState<Organization | null>(null);
+type FormValues = z.infer<typeof schema>;
+
+// ----------------------------------------------------------------------
+
+interface OrganizationCreateUpdateDialogProps {
+  open: boolean;
+  onClose: () => void;
+  editingOrg: Organization | null;
+}
+
+// ----------------------------------------------------------------------
+
+export function OrganizationCreateUpdateDialog({
+  open,
+  onClose,
+  editingOrg,
+}: OrganizationCreateUpdateDialogProps) {
+  const { create, update } = useOrganizationMutation();
+
+  const method = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      place: '',
+      address: '',
+      description: '',
+    },
+  });
+
+  const { handleSubmit, reset } = method;
+
+  useEffect(() => {
+    if (open) {
+      if (editingOrg) {
+        reset({
+          place: editingOrg.name,
+          address: editingOrg.code ?? '',
+          description: editingOrg.contactPerson ?? '',
+        });
+      } else {
+        reset({ place: '', address: '', description: '' });
+      }
+    }
+  }, [open, editingOrg, reset]);
+
+  const isPending = create.isPending || update.isPending;
+
+  const onSubmit = handleSubmit(async (data: FormValues) => {
+    if (editingOrg) {
+      await update.mutateAsync({
+        id: editingOrg.id,
+        name: data.place,
+        code: data.address,
+        contactPerson: data.description,
+      });
+    } else {
+      await create.mutateAsync({
+        name: data.place,
+        code: data.address,
+        contactPerson: data.description,
+      });
+    }
+  });
 
   return (
-    <Dialog open={dialogOpen} onClose={() => setDialogOpen(false)} fullWidth maxWidth="sm">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{editingOrg ? 'ویرایش سازمان' : 'افزودن سازمان'}</DialogTitle>
+      {isPending && <LinearProgress />}
       <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
-        <TextField
-          label="نام سازمان"
-          value={form.place}
-          error={!!error}
-          helperText={error}
-          onChange={(e) => setForm((prev) => ({ ...prev, name: e.target.value }))}
-        />
-        <TextField
-          label="آدرس "
-          value={form.address}
-          onChange={(e) => setForm((prev) => ({ ...prev, code: e.target.value }))}
-        />
-        <TextField
-          label="توضیحات"
-          value={form.description}
-          onChange={(e) => setForm((prev) => ({ ...prev, contactPerson: e.target.value }))}
-        />
+        <Form onSubmit={onSubmit} method={method}>
+          <FormField name="place" label="نام سازمان" />
+          <FormField name="address" label="آدرس" />
+          <FormField name="description" label="توضیحات" />
+          <DialogActions>
+            <Button onClick={onClose}>انصراف</Button>
+            <Button variant="contained" type="submit" disabled={isPending}>
+              ذخیره
+            </Button>
+          </DialogActions>
+        </Form>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={() => setDialogOpen(false)}>انصراف</Button>
-        <Button variant="contained" onClick={handleSave}>
-          ذخیره
-        </Button>
-      </DialogActions>
-    </Dialog>)
-  )
+    </Dialog>
+  );
 }
