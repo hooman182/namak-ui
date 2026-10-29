@@ -1,4 +1,4 @@
-import type { Letter, LetterDirection } from 'src/types/letter';
+import type { LetterDataType, LetterDirection } from 'src/types/letter';
 
 // ----------------------------------------------------------------------
 
@@ -10,8 +10,8 @@ export function emptyRows(page: number, rowsPerPage: number, arrayLength: number
 
 export function getLetterComparator(
   order: 'asc' | 'desc',
-  orderBy: keyof Letter | 'attachments'
-): (a: Letter, b: Letter) => number {
+  orderBy: keyof LetterDataType | 'attachments'
+): (a: LetterDataType, b: LetterDataType) => number {
   return (a, b) => {
     let aVal: string | number = '';
     let bVal: string | number = '';
@@ -20,7 +20,7 @@ export function getLetterComparator(
       aVal = a.attachments.length;
       bVal = b.attachments.length;
     } else {
-      const key = orderBy as keyof Letter;
+      const key = orderBy as keyof LetterDataType;
       const av = a[key];
       const bv = b[key];
       aVal = typeof av === 'string' || typeof av === 'number' ? av : String(av ?? '');
@@ -36,8 +36,8 @@ export function getLetterComparator(
 // ----------------------------------------------------------------------
 
 type ApplyFilterProps = {
-  inputData: Letter[];
-  comparator: (a: Letter, b: Letter) => number;
+  inputData: LetterDataType[];
+  comparator: (a: LetterDataType, b: LetterDataType) => number;
   filterName: string;
   filterDirection: LetterDirection | 'all';
   filterOrganizationId: string;

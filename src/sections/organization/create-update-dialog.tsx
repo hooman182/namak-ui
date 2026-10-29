@@ -1,20 +1,20 @@
-import type { Organization } from 'src/types/organization';
+import type { OrganizationDataType } from 'src/types/organization';
 
 import * as z from 'zod';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { TextFieldController } from '@/components/composite/form-controller';
 
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
+import { Divider, Stack } from '@mui/material';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import LinearProgress from '@mui/material/LinearProgress';
 
 import Form from 'src/providers/form-provider';
-
-import { FormField } from 'src/components/composite/form-field';
 
 import { useOrganizationMutation } from './use-organization-mutation';
 
@@ -33,7 +33,7 @@ type FormValues = z.infer<typeof schema>;
 interface OrganizationCreateUpdateDialogProps {
   open: boolean;
   onClose: () => void;
-  editingOrg: Organization | null;
+  editingOrg: OrganizationDataType | null;
 }
 
 // ----------------------------------------------------------------------
@@ -61,8 +61,8 @@ export function OrganizationCreateUpdateDialog({
       if (editingOrg) {
         reset({
           place: editingOrg.name,
-          address: editingOrg.code ?? '',
-          description: editingOrg.contactPerson ?? '',
+          address: editingOrg.address ?? '',
+          description: editingOrg.description ?? '',
         });
       } else {
         reset({ place: '', address: '', description: '' });
@@ -77,14 +77,14 @@ export function OrganizationCreateUpdateDialog({
       await update.mutateAsync({
         id: editingOrg.id,
         name: data.place,
-        code: data.address,
-        contactPerson: data.description,
+        address: data.address,
+        description: data.description,
       });
     } else {
       await create.mutateAsync({
         name: data.place,
-        code: data.address,
-        contactPerson: data.description,
+        address: data.address,
+        description: data.description,
       });
     }
   });
@@ -92,12 +92,16 @@ export function OrganizationCreateUpdateDialog({
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{editingOrg ? 'ویرایش سازمان' : 'افزودن سازمان'}</DialogTitle>
+      <Divider/>
       {isPending && <LinearProgress />}
-      <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, pt: 1 }}>
+      <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
         <Form onSubmit={onSubmit} method={method}>
-          <FormField name="place" label="نام سازمان" />
-          <FormField name="address" label="آدرس" />
-          <FormField name="description" label="توضیحات" />
+          <Stack direction="column" spacing={3} sx={{ py: 2 }}>
+            <TextFieldController name="place" label="نام سازمان" />
+            <TextFieldController name="address" label="آدرس" />
+            <TextFieldController name="description" label="توضیحات" />
+          </Stack>
+          <Divider />
           <DialogActions>
             <Button onClick={onClose}>انصراف</Button>
             <Button variant="contained" type="submit" disabled={isPending}>

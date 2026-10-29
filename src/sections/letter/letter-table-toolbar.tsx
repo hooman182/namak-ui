@@ -1,5 +1,5 @@
 import type { LetterDirection } from 'src/types/letter';
-import type { Organization } from 'src/types/organization';
+import type { OrganizationDataType } from 'src/types/organization';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -18,7 +18,7 @@ type LetterTableToolbarProps = {
   filterName: string;
   filterDirection: LetterDirection | 'all';
   filterOrganizationId: string;
-  organizations: Organization[];
+  organizations: OrganizationDataType[];
   onFilterName: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onFilterDirection: (value: LetterDirection | 'all') => void;
   onFilterOrganization: (organizationId: string) => void;

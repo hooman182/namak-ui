@@ -1,9 +1,8 @@
-export type Organization = {
+export type OrganizationDataType = {
   id: string;
   name: string;
-  code?: string;
-  contactPerson?: string;
-  phone?: string;
+  address?: string;
+  description?: string;
 };
 
-export type OrganizationFormData = Omit<Organization, 'id'>;
+export type OrganizationFormData = Omit<OrganizationDataType, 'id'>;

@@ -1,4 +1,4 @@
-import type { Letter } from 'src/types/letter';
+import type { LetterDataType } from 'src/types/letter';
 
 import { useCallback } from 'react';
 import { usePopover } from 'minimal-shared/hooks';
@@ -23,7 +23,7 @@ import { LETTER_DIRECTION_LABELS } from 'src/types/letter';
 // ----------------------------------------------------------------------
 
 type LetterTableRowProps = {
-  row: Letter;
+  row: LetterDataType;
   selected: boolean;
   organizationName: string;
   onSelectRow: () => void;
@@ -61,21 +61,21 @@ export function LetterTableRow({
         <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
-        <TableCell align="right">{row.letterNumber}</TableCell>
-        <TableCell align="right">{row.subject}</TableCell>
-        <TableCell align="center">
+        <TableCell>{row.letterNumber}</TableCell>
+        <TableCell>{row.subject}</TableCell>
+        <TableCell>
           <Label color={row.direction === 'incoming' ? 'info' : 'success'}>
             {LETTER_DIRECTION_LABELS[row.direction]}
           </Label>
         </TableCell>
-        <TableCell align="right">{organizationName}</TableCell>
-        <TableCell align="right">{fDate(row.letterDate)}</TableCell>
-        <TableCell align="center">
+        <TableCell>{organizationName}</TableCell>
+        <TableCell>{fDate(row.letterDate)}</TableCell>
+        <TableCell>
           <Label variant="soft" color="default">
             {row.attachments.length}
           </Label>
         </TableCell>
-        <TableCell align="left">
+        <TableCell>
           <IconButton onClick={onOpen}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>

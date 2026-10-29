@@ -1,3 +1,5 @@
+import { Iconify } from '@/components/iconify/iconify';
+
 import { SvgColor } from 'src/components/svg-color';
 
 // ----------------------------------------------------------------------
@@ -30,7 +32,7 @@ export const navData: NavItem[] = [
   {
     title: 'سازمان‌ها',
     path: '/organizations',
-    icon: icon('ic-user'),
+    icon: <Iconify icon="codicon:organization" />,
   },
   {
     title: 'ورود',

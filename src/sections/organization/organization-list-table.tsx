@@ -1,4 +1,4 @@
-import type { Organization } from 'src/types/organization';
+import type { OrganizationDataType } from 'src/types/organization';
 
 import Table from '@mui/material/Table';
 import TableRow from '@mui/material/TableRow';
@@ -15,8 +15,8 @@ import { Scrollbar } from 'src/components/scrollbar';
 // ----------------------------------------------------------------------
 
 interface OrganizationListTableProps {
-  organizations: Organization[];
-  onEdit: (org: Organization) => void;
+  organizations: OrganizationDataType[];
+  onEdit: (org: OrganizationDataType) => void;
   onDelete: (id: string) => void;
 }
 
@@ -33,21 +33,19 @@ export function OrganizationListTable({
         <Table sx={{ minWidth: 720 }}>
           <TableHead>
             <TableRow>
-              <TableCell align="right">نام سازمان</TableCell>
-              <TableCell align="right">کد</TableCell>
-              <TableCell align="right">مسئول</TableCell>
-              <TableCell align="right">تلفن</TableCell>
-              <TableCell align="left" width={100} />
+              <TableCell >نام سازمان</TableCell>
+              <TableCell >آدرس</TableCell>
+              <TableCell >توضیحات</TableCell>
+              <TableCell  width={100} />
             </TableRow>
           </TableHead>
           <TableBody>
             {organizations.map((org) => (
               <TableRow key={org.id} hover>
-                <TableCell align="right">{org.name}</TableCell>
-                <TableCell align="right">{org.code ?? '—'}</TableCell>
-                <TableCell align="right">{org.contactPerson ?? '—'}</TableCell>
-                <TableCell align="right">{org.phone ?? '—'}</TableCell>
-                <TableCell align="left">
+                <TableCell >{org.name}</TableCell>
+                <TableCell >{org.address ?? '—'}</TableCell>
+                <TableCell >{org.description ?? '—'}</TableCell>
+                <TableCell >
                   <IconButton size="small" onClick={() => onEdit(org)}>
                     <Iconify icon="solar:pen-bold" />
                   </IconButton>

@@ -46,7 +46,6 @@ export function LetterTableHead({
         {headLabel.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={headCell.align || 'right'}
             sortDirection={orderBy === headCell.id ? order : false}
             sx={{ width: headCell.width, whiteSpace: 'nowrap' }}
           >

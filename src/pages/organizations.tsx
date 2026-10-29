@@ -1,6 +1,7 @@
-import { CONFIG } from 'src/config-global';
 
-import { OrganizationListView } from 'src/sections/organization/view/organization-list-view';
+import { OrganizationView } from '@/sections/organization/view/organization-view';
+
+import { CONFIG } from 'src/config-global';
 
 // ----------------------------------------------------------------------
 
@@ -8,7 +9,7 @@ export default function Page() {
   return (
     <>
       <title>{`سازمان‌ها - ${CONFIG.appName}`}</title>
-      <OrganizationListView />
+      <OrganizationView />
     </>
   );
 }

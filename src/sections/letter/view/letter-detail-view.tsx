@@ -1,5 +1,5 @@
-import { useMemo, useState, useCallback } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
+import { useMemo, useState, useCallback, type ComponentProps } from 'react';
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -25,12 +25,8 @@ import { isImageMime } from 'src/components/upload/file-utils';
 
 import { LETTER_DIRECTION_LABELS } from 'src/types/letter';
 
-import {
-  LetterForm,
-  letterToFormValues,
-  type LetterFormValues,
-  formValuesToLetterData,
-} from '../letter-form';
+import { LetterForm } from '../letter-form';
+import { formValuesToLetterData, letterDataToFormValues } from '../letter-form-schema';
 
 // ----------------------------------------------------------------------
 
@@ -47,17 +43,23 @@ export function LetterDetailView() {
   const [deleteOpen, setDeleteOpen] = useState(false);
 
   const initialValues = useMemo(
-    () => (letter ? letterToFormValues(letter) : undefined),
-    [letter]
+    () => {
+      if (!letter) return undefined;
+      const organization = organizations.find((item) => item.id === letter.organizationId);
+      return letterDataToFormValues(letter, organization);
+    },
+    [letter, organizations]
   );
 
-  const handleUpdate = useCallback(
-    (values: LetterFormValues) => {
+  const handleUpdate: NonNullable<ComponentProps<typeof LetterForm>['onSubmit']> = useCallback(
+    (values) => {
+      if (!letter) return;
+
       updateLetter(id, formValuesToLetterData(values));
       setEditing(false);
       router.push(`/letters/${id}`);
     },
-    [id, router, updateLetter]
+    [id, letter, router, updateLetter]
   );
 
   const handleDelete = useCallback(() => {

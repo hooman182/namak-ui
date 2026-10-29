@@ -1,4 +1,4 @@
-import type { Letter, LetterDirection } from 'src/types/letter';
+import type { LetterDataType, LetterDirection } from 'src/types/letter';
 
 import { useState, useCallback } from 'react';
 
@@ -41,7 +41,7 @@ export function LetterListView() {
     inputData: letters,
     comparator: getLetterComparator(
       table.order,
-      table.orderBy as keyof Letter | 'attachments'
+      table.orderBy as keyof LetterDataType | 'attachments'
     ),
     filterName,
     filterDirection,

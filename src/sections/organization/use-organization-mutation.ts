@@ -1,4 +1,4 @@
-import type { Organization, OrganizationFormData } from 'src/types/organization';
+import type { OrganizationDataType, OrganizationFormData } from 'src/types/organization';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -20,7 +20,7 @@ export function useOrganizationMutation() {
 
   const update = useMutation({
     mutationKey: ['organization', 'update'],
-    mutationFn: async ({ id, ...data }: Organization & OrganizationFormData) =>
+    mutationFn: async ({ id, ...data }: OrganizationDataType & OrganizationFormData) =>
       updateOrganization(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['organizations'] });

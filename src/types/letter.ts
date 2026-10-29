@@ -8,7 +8,7 @@ export type LetterAttachment = {
   previewUrl: string;
 };
 
-export type Letter = {
+export type LetterDataType = {
   id: string;
   subject: string;
   letterNumber: string;
@@ -20,7 +20,7 @@ export type Letter = {
   createdAt: string;
 };
 
-export type LetterFormData = Omit<Letter, 'id' | 'createdAt'>;
+export type LetterFormData = Omit<LetterDataType, 'id' | 'createdAt'>;
 
 export const LETTER_DIRECTION_LABELS: Record<LetterDirection, string> = {
   incoming: 'وارده',

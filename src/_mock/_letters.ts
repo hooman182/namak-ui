@@ -1,11 +1,11 @@
-import type { Letter } from 'src/types/letter';
+import type { LetterDataType } from 'src/types/letter';
 
 import { _id } from './_mock';
 import { _organizations } from './_organizations';
 
 // ----------------------------------------------------------------------
 
-export const _letters: Letter[] = [
+export const _letters: LetterDataType[] = [
   {
     id: _id(101),
     subject: 'درخواست تأیید قرارداد همکاری',

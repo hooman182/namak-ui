@@ -1,50 +1,44 @@
-import type { Organization } from 'src/types/organization';
+import type { OrganizationDataType } from 'src/types/organization';
 
 import { _id } from './_mock';
 
 // ----------------------------------------------------------------------
 
-export const _organizations: Organization[] = [
+export const _organizations: OrganizationDataType[] = [
   {
     id: _id(1),
     name: 'وزارت امور اقتصادی و دارایی',
-    code: 'MEF-001',
-    contactPerson: 'علی رضایی',
-    phone: '021-88776655',
+    address: 'MEF-001',
+    description: 'علی رضایی',
   },
   {
     id: _id(2),
     name: 'شرکت ملی نفت ایران',
-    code: 'NIOC-002',
-    contactPerson: 'مریم احمدی',
-    phone: '021-44556677',
+    address: 'NIOC-002',
+    description: 'مریم احمدی',
   },
   {
     id: _id(3),
     name: 'سازمان تأمین اجتماعی',
-    code: 'SSO-003',
-    contactPerson: 'حسین کریمی',
-    phone: '021-33445566',
+    address: 'SSO-003',
+    description: 'حسین کریمی',
   },
   {
     id: _id(4),
     name: 'بانک مرکزی جمهوری اسلامی ایران',
-    code: 'CBI-004',
-    contactPerson: 'زهرا موسوی',
-    phone: '021-55667788',
+    address: 'CBI-004',
+    description: 'زهرا موسوی',
   },
   {
     id: _id(5),
     name: 'شرکت ایران خودرو',
-    code: 'IKCO-005',
-    contactPerson: 'رضا نوری',
-    phone: '021-77889900',
+    address: 'IKCO-005',
+    description: 'رضا نوری',
   },
   {
     id: _id(6),
     name: 'اداره کل مالیات',
-    code: 'TAX-006',
-    contactPerson: 'فاطمه حسینی',
-    phone: '021-11223344',
+    address: 'TAX-006',
+    description: 'فاطمه حسینی',
   },
 ];

@@ -7,7 +7,8 @@ import { useRouter } from 'src/routes/hooks';
 import { useData } from 'src/contexts/data-context';
 import { DashboardContent } from 'src/layouts/dashboard';
 
-import { LetterForm, type LetterFormValues, formValuesToLetterData } from '../letter-form';
+import { LetterForm } from '../letter-form';
+import { type LetterFormValues, formValuesToLetterData } from '../letter-form-schema';
 
 // ----------------------------------------------------------------------
 

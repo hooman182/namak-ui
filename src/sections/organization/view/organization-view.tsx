@@ -1,4 +1,4 @@
-import type { Organization } from 'src/types/organization';
+import type { OrganizationDataType } from 'src/types/organization';
 
 import { useState, useCallback } from 'react';
 
@@ -17,18 +17,18 @@ import { OrganizationCreateUpdateDialog } from '../create-update-dialog';
 
 // ----------------------------------------------------------------------
 
-export function OrganizationListView() {
+export function OrganizationView() {
   const { organizations, deleteOrganization } = useData();
 
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingOrg, setEditingOrg] = useState<Organization | null>(null);
+  const [editingOrg, setEditingOrg] = useState<OrganizationDataType | null>(null);
 
   const openCreate = useCallback(() => {
     setEditingOrg(null);
     setDialogOpen(true);
   }, []);
 
-  const openEdit = useCallback((org: Organization) => {
+  const openEdit = useCallback((org: OrganizationDataType) => {
     setEditingOrg(org);
     setDialogOpen(true);
   }, []);

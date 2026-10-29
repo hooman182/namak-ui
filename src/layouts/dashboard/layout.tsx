@@ -20,6 +20,7 @@ import { _workspaces } from '../nav-config-workspace';
 import { MenuButton } from '../components/menu-button';
 import { HeaderSection } from '../core/header-section';
 import { LayoutSection } from '../core/layout-section';
+import { PaletteToggle } from '../components/palette-toggle';
 import { AccountPopover } from '../components/account-popover';
 import { NotificationsPopover } from '../components/notifications-popover';
 
@@ -77,6 +78,9 @@ export function DashboardLayout({
         <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 0, sm: 0.75 } }}>
           {/** @slot Searchbar */}
           <Searchbar />
+
+          {/** @slot Palette toggle */}
+          <PaletteToggle />
 
           {/** @slot Notifications popover */}
           <NotificationsPopover data={_notifications} />

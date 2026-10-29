@@ -1,5 +1,5 @@
-import type { Letter, LetterFormData } from 'src/types/letter';
-import type { Organization, OrganizationFormData } from 'src/types/organization';
+import type { LetterDataType, LetterFormData } from 'src/types/letter';
+import type { OrganizationDataType, OrganizationFormData } from 'src/types/organization';
 
 import {
   useMemo,
@@ -16,15 +16,15 @@ import { _organizations } from 'src/_mock/_organizations';
 // ----------------------------------------------------------------------
 
 type DataContextValue = {
-  letters: Letter[];
-  organizations: Organization[];
-  getLetter: (id: string) => Letter | undefined;
-  getOrganization: (id: string) => Organization | undefined;
+  letters: LetterDataType[];
+  organizations: OrganizationDataType[];
+  getLetter: (id: string) => LetterDataType | undefined;
+  getOrganization: (id: string) => OrganizationDataType | undefined;
   getOrganizationName: (id: string) => string;
-  addLetter: (data: LetterFormData) => Letter;
+  addLetter: (data: LetterFormData) => LetterDataType;
   updateLetter: (id: string, data: LetterFormData) => void;
   deleteLetter: (id: string) => void;
-  addOrganization: (data: OrganizationFormData) => Organization;
+  addOrganization: (data: OrganizationFormData) => OrganizationDataType;
   updateOrganization: (id: string, data: OrganizationFormData) => void;
   deleteOrganization: (id: string) => void;
 };
@@ -47,8 +47,8 @@ type DataProviderProps = {
 };
 
 export function DataProvider({ children }: DataProviderProps) {
-  const [letters, setLetters] = useState<Letter[]>(_letters);
-  const [organizations, setOrganizations] = useState<Organization[]>(_organizations);
+  const [letters, setLetters] = useState<LetterDataType[]>(_letters);
+  const [organizations, setOrganizations] = useState<OrganizationDataType[]>(_organizations);
 
   const getLetter = useCallback(
     (id: string) => letters.find((letter) => letter.id === id),
@@ -66,7 +66,7 @@ export function DataProvider({ children }: DataProviderProps) {
   );
 
   const addLetter = useCallback((data: LetterFormData) => {
-    const newLetter: Letter = {
+    const newLetter: LetterDataType = {
       ...data,
       id: generateId(),
       createdAt: new Date().toISOString(),
@@ -86,7 +86,7 @@ export function DataProvider({ children }: DataProviderProps) {
   }, []);
 
   const addOrganization = useCallback((data: OrganizationFormData) => {
-    const newOrg: Organization = { ...data, id: generateId() };
+    const newOrg: OrganizationDataType = { ...data, id: generateId() };
     setOrganizations((prev) => [...prev, newOrg]);
     return newOrg;
   }, []);
