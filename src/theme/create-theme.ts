@@ -1,7 +1,10 @@
 import type { Theme } from '@mui/material/styles';
 
+import { createPaletteChannel } from 'minimal-shared/utils';
+
 import { createTheme as createMuiTheme } from '@mui/material/styles';
 
+import { PALETTES } from './palettes';
 import { shadows } from './core/shadows';
 import { palette } from './core/palette';
 import { themeConfig } from './theme-config';
@@ -13,10 +16,37 @@ import type { ThemeOptions } from './types';
 
 // ----------------------------------------------------------------------
 
+function createExtraPalette(name: 'ocean' | 'forest') {
+  const { primary, secondary } = PALETTES[name].palette;
+
+  return {
+    ...palette.light,
+    primary: createPaletteChannel(primary),
+    secondary: createPaletteChannel(secondary),
+  };
+}
+
+// ----------------------------------------------------------------------
+
 export const baseTheme: ThemeOptions = {
   colorSchemes: {
     light: {
       palette: palette.light,
+      shadows: shadows.light,
+      customShadows: customShadows.light,
+    },
+    dark: {
+      palette: palette.dark,
+      shadows: shadows.dark,
+      customShadows: customShadows.dark,
+    },
+    ocean: {
+      palette: createExtraPalette('ocean'),
+      shadows: shadows.light,
+      customShadows: customShadows.light,
+    },
+    forest: {
+      palette: createExtraPalette('forest'),
       shadows: shadows.light,
       customShadows: customShadows.light,
     },

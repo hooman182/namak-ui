@@ -15,9 +15,7 @@ export type ThemeProviderProps = Partial<MuiThemeProviderProps> & {
 };
 
 export function ThemeProvider({ themeOverrides, children, ...other }: ThemeProviderProps) {
-  const theme = createTheme({
-    themeOverrides,
-  });
+  const theme = createTheme({ themeOverrides });
 
   return (
     <ThemeVarsProvider disableTransitionOnChange theme={theme} {...other}>

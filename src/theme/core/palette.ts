@@ -64,28 +64,28 @@ export type GreyExtend = {
 // ----------------------------------------------------------------------
 
 // Primary color
-export const primary = createPaletteChannel(themeConfig.palette.primary);
+export const primary = createPaletteChannel(themeConfig.palette.light.primary);
 
 // Secondary color
-export const secondary = createPaletteChannel(themeConfig.palette.secondary);
+export const secondary = createPaletteChannel(themeConfig.palette.light.secondary);
 
 // Info color
-export const info = createPaletteChannel(themeConfig.palette.info);
+export const info = createPaletteChannel(themeConfig.palette.light.info);
 
 // Success color
-export const success = createPaletteChannel(themeConfig.palette.success);
+export const success = createPaletteChannel(themeConfig.palette.light.success);
 
 // Warning color
-export const warning = createPaletteChannel(themeConfig.palette.warning);
+export const warning = createPaletteChannel(themeConfig.palette.light.warning);
 
 // Error color
-export const error = createPaletteChannel(themeConfig.palette.error);
+export const error = createPaletteChannel(themeConfig.palette.light.error);
 
 // Common color
-export const common = createPaletteChannel(themeConfig.palette.common);
+export const common = createPaletteChannel(themeConfig.palette.light.common);
 
 // Grey color
-export const grey = createPaletteChannel(themeConfig.palette.grey);
+export const grey = createPaletteChannel(themeConfig.palette.light.grey);
 
 // Text color
 export const text = {
@@ -93,6 +93,11 @@ export const text = {
     primary: grey[800],
     secondary: grey[600],
     disabled: grey[500],
+  }),
+  dark: createPaletteChannel({
+    primary: '#F4F6F8',
+    secondary: '#C4CDD5',
+    disabled: '#919EAB',
   }),
 };
 
@@ -102,6 +107,11 @@ export const background = {
     paper: '#FFFFFF',
     default: grey[100],
     neutral: grey[200],
+  }),
+  dark: createPaletteChannel({
+    paper: '#1C252E',
+    default: '#141A21',
+    neutral: '#283241',
   }),
 };
 
@@ -119,6 +129,7 @@ export const baseAction = {
 // Action color
 export const action = {
   light: { ...baseAction, active: grey[600] },
+  dark: { ...baseAction, active: '#C4CDD5' },
 };
 
 // ----------------------------------------------------------------------
@@ -136,11 +147,38 @@ export const basePalette = {
   divider: varAlpha(grey['500Channel'], 0.2),
 };
 
+const darkGrey = createPaletteChannel({
+  '50': '#141A21',
+  '100': '#1C252E',
+  '200': '#283241',
+  '300': '#3A4556',
+  '400': '#566476',
+  '500': '#7B8A9E',
+  '600': '#A0ADB9',
+  '700': '#C1CBD3',
+  '800': '#DFE3E8',
+  '900': '#F4F6F8',
+});
+
 export const palette: Partial<Record<ThemeColorScheme, ColorSystemOptions['palette']>> = {
   light: {
     ...basePalette,
     text: text.light,
     background: background.light,
     action: action.light,
+  },
+  dark: {
+    primary: createPaletteChannel(themeConfig.palette.dark.primary),
+    secondary: createPaletteChannel(themeConfig.palette.dark.secondary),
+    info,
+    success,
+    warning,
+    error,
+    common,
+    grey: darkGrey,
+    text: text.dark,
+    background: background.dark,
+    action: action.dark,
+    divider: varAlpha(darkGrey['500Channel'], 0.2),
   },
 };

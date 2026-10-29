@@ -17,7 +17,13 @@ import type { CustomShadows } from './core/custom-shadows';
  * @see https://github.com/mui/material-ui/blob/master/packages/mui-material/src/styles/createTheme.ts
  */
 
-export type ThemeColorScheme = SupportedColorScheme;
+export type ThemeColorScheme = SupportedColorScheme | 'ocean' | 'forest';
+
+export type PaletteLabel = {
+  label: string;
+  light?: string;
+  dark?: string;
+};
 export type ThemeCssVariables = Pick<
   CssVarsThemeOptions,
   'colorSchemeSelector' | 'disableCssColorScheme' | 'cssVarPrefix' | 'shouldSkipGeneratingVar'

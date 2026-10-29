@@ -9,7 +9,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 const MuiBackdrop: Components<Theme>['MuiBackdrop'] = {
   styleOverrides: {
     root: ({ theme }) => ({
-      backgroundColor: varAlpha(theme.vars.palette.grey['900Channel'], 0.8),
+      backgroundColor: varAlpha(theme.vars.palette.grey['600Channel'], 0.25),
     }),
     invisible: {
       background: 'transparent',
@@ -33,11 +33,19 @@ const MuiButton: Components<Theme>['MuiButton'] = {
       },
       style: ({ theme }) => ({
         color: theme.vars.palette.common.white,
-        backgroundColor: theme.vars.palette.grey[800],
+        backgroundColor:
+          theme.vars.palette.grey[800],
         '&:hover': {
           color: theme.vars.palette.common.white,
-          backgroundColor: theme.vars.palette.grey[800],
+          backgroundColor:
+            theme.vars.palette.grey[800],
         },
+        ...theme.applyStyles('dark', {
+          backgroundColor: theme.vars.palette.primary.main,
+          '&:hover': {
+            backgroundColor: theme.vars.palette.primary.light,
+          },
+        }),
       }),
     },
   ],
