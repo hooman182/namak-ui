@@ -1,19 +1,10 @@
 import 'src/global.css';
 
 import { useEffect } from 'react';
-import createCache from '@emotion/cache';
-import rtlPlugin from 'stylis-plugin-rtl';
 
 import { usePathname } from 'src/routes/hooks';
 
 import AppProvider from './providers/app-provider';
-
-// ----------------------------------------------------------------------
-
-const cacheRtl = createCache({
-  key: 'muirtl',
-  stylisPlugins: [rtlPlugin],
-});
 
 // ----------------------------------------------------------------------
 
