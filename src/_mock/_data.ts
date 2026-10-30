@@ -14,8 +14,9 @@ import {
 // ----------------------------------------------------------------------
 
 export const _myAccount = {
-  displayName: 'Jaydon Frankie',
-  email: 'demo@minimals.cc',
+  displayName: 'هومن محمدی',
+  email: 'hooman@namak.co',
+  jobPosition: 'کارشناس',
   photoURL: '/assets/images/avatar/avatar-25.webp',
 };
 
@@ -164,8 +165,8 @@ export const _tasks = Array.from({ length: 5 }, (_, index) => ({
 export const _notifications = [
   {
     id: _id(1),
-    title: 'Your order is placed',
-    description: 'waiting for shipping',
+    title: 'سفارش شما ثبت شد',
+    description: 'در انتظار ارسال',
     avatarUrl: null,
     type: 'order-placed',
     postedAt: _times(1),
@@ -174,7 +175,7 @@ export const _notifications = [
   {
     id: _id(2),
     title: _fullName(2),
-    description: 'answered to your comment on the Minimal',
+    description: 'به دیدگاه شما پاسخ داد',
     avatarUrl: '/assets/images/avatar/avatar-2.webp',
     type: 'friend-interactive',
     postedAt: _times(2),
@@ -182,8 +183,8 @@ export const _notifications = [
   },
   {
     id: _id(3),
-    title: 'You have new message',
-    description: '5 unread messages',
+    title: 'پیام جدید دارید',
+    description: '۵ پیام خوانده‌نشده',
     avatarUrl: null,
     type: 'chat-message',
     postedAt: _times(3),
@@ -191,8 +192,8 @@ export const _notifications = [
   },
   {
     id: _id(4),
-    title: 'You have new mail',
-    description: 'sent from Guido Padberg',
+    title: 'نامه جدید دارید',
+    description: 'از طرف Guido Padberg',
     avatarUrl: null,
     type: 'mail',
     postedAt: _times(4),
@@ -200,8 +201,8 @@ export const _notifications = [
   },
   {
     id: _id(5),
-    title: 'Delivery processing',
-    description: 'Your order is being shipped',
+    title: 'در حال پردازش ارسال',
+    description: 'سفارش شما در حال ارسال است',
     avatarUrl: null,
     type: 'order-shipped',
     postedAt: _times(5),

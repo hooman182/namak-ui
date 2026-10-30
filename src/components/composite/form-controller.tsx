@@ -1,15 +1,19 @@
-import type { Theme } from "@mui/material/styles";
 import type { BaseTextFieldProps } from "@mui/material"
 import type { FieldPath, FieldValues} from "react-hook-form";
 
-import { varAlpha } from "minimal-shared/utils";
 import { Controller, useFormContext } from "react-hook-form";
 
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { ArrowLeftIcon, ArrowRightIcon } from "@mui/x-date-pickers/icons";
-import { TextField, FormControl, ToggleButton, Autocomplete, ToggleButtonGroup } from "@mui/material";
+import {
+  TextField,
+  FormControl,
+  ToggleButton,
+  Autocomplete,
+  ToggleButtonGroup,
+  toggleButtonGroupClasses,
+} from "@mui/material";
 
 import { UploadBox } from "../upload/upload-box";
+import { DatePickerField } from "../date-picker";
 
 //---------------------------------------------------------------------------
 
@@ -90,6 +94,20 @@ export function ToggleButtonController<T extends FieldValues>({
         <ToggleButtonGroup
           value={field.value ?? null}
           exclusive={exclusive}
+          sx={(theme) => {
+            const borderRadius = Number(theme.shape.borderRadius) * 1.5;
+
+            return {
+              [`& .${toggleButtonGroupClasses.firstButton}`]: {
+                borderTopLeftRadius: borderRadius,
+                borderBottomLeftRadius: borderRadius,
+              },
+              [`& .${toggleButtonGroupClasses.lastButton}`]: {
+                borderTopRightRadius: borderRadius,
+                borderBottomRightRadius: borderRadius,
+              },
+            };
+          }}
           onChange={(_, value) => {
             field.onChange(value);
           }}
@@ -126,43 +144,15 @@ export function DatePickerController<T extends FieldValues>({
       name={name}
       control={control}
       render={({ field, fieldState }) => (
-        <DatePicker
+        <DatePickerField
           label={label}
-          format="yyyy/MM/dd"
           value={parseStoredDate(field.value)}
-          slots={{
-            leftArrowIcon: ArrowRightIcon,
-            rightArrowIcon: ArrowLeftIcon,
-          }}
           onChange={(value) => {
             field.onChange(value && !Number.isNaN(value.getTime()) ? formatStoredDate(value) : "");
           }}
-          slotProps={{
-            textField: {
-              fullWidth,
-              error: !!fieldState.error,
-              helperText: fieldState.error?.message,
-              sx: (theme) => ({
-                "& .MuiOutlinedInput-root": {
-                  borderRadius: 2,
-                  backgroundColor: varAlpha(theme.vars.palette.background.defaultChannel, 0.42),
-                  transition: theme.transitions.create(["background-color", "box-shadow"]),
-                  "&:hover": {
-                    backgroundColor: varAlpha(theme.vars.palette.background.defaultChannel, 0.58),
-                  },
-                  "&.Mui-focused": {
-                    backgroundColor: varAlpha(theme.vars.palette.background.defaultChannel, 0.72),
-                    boxShadow: `0 0 0 4px ${varAlpha(theme.vars.palette.primary.mainChannel, 0.12)}`,
-                  },
-                  "& .MuiOutlinedInput-notchedOutline": {
-                    borderColor: varAlpha(theme.vars.palette.grey["500Channel"], 0.24),
-                  },
-                },
-              }),
-            },
-            desktopPaper: { sx: glassDatePickerPaperSx },
-            mobilePaper: { sx: glassDatePickerPaperSx },
-          }}
+          fullWidth={fullWidth}
+          error={!!fieldState.error}
+          helperText={fieldState.error?.message}
         />
       )}
     />
@@ -193,25 +183,6 @@ function formatStoredDate(date: Date): string {
 
   return `${year}-${month}-${day}`;
 }
-
-const glassDatePickerPaperSx = (theme: Theme) => ({
-  border: `1px solid ${varAlpha(theme.vars.palette.grey["500Channel"], 0.2)}`,
-  borderRadius: 3,
-  backgroundColor: varAlpha(theme.vars.palette.background.defaultChannel, 0.76),
-  backdropFilter: "blur(20px) saturate(1.4)",
-  boxShadow: `0 18px 48px ${varAlpha(theme.vars.palette.grey["900Channel"], 0.22)}`,
-  overflow: "hidden",
-  "& .MuiPickersDay-root": {
-    borderRadius: 2,
-    transition: theme.transitions.create(["background-color", "transform"]),
-    "&:hover": {
-      backgroundColor: varAlpha(theme.vars.palette.primary.mainChannel, 0.12),
-    },
-    "&.Mui-selected": {
-      boxShadow: `0 4px 12px ${varAlpha(theme.vars.palette.primary.mainChannel, 0.32)}`,
-    },
-  },
-});
 
 // ----------------------------------------------------------------------
 

@@ -13,7 +13,7 @@ export const _account: AccountPopoverProps['data'] = [
   {
     label: 'نامه‌ها',
     href: '/letters',
-    icon: <Iconify width={22} icon="solar:chat-round-dots-bold" />,
+    icon: <Iconify width={22} icon="solar:letter-bold-duotone" />,
   },
   {
     label: 'تنظیمات',

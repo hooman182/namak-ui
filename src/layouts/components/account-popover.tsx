@@ -87,7 +87,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
           </Typography>
 
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {_myAccount?.email}
+            {_myAccount?.jobPosition}
           </Typography>
         </Box>
 
@@ -130,7 +130,7 @@ export function AccountPopover({ data = [], sx, ...other }: AccountPopoverProps)
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth color="error" size="medium" variant="text">
-            Logout
+            خروج از حساب
           </Button>
         </Box>
       </Popover>

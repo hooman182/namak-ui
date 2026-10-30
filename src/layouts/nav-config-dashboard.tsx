@@ -1,10 +1,6 @@
 import { Iconify } from '@/components/iconify/iconify';
 
-import { SvgColor } from 'src/components/svg-color';
-
 // ----------------------------------------------------------------------
-
-const icon = (name: string) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} />;
 
 export type NavItem = {
   title: string;
@@ -17,26 +13,21 @@ export const navData: NavItem[] = [
   {
     title: 'داشبورد',
     path: '/',
-    icon: icon('ic-analytics'),
+    icon: <Iconify width={24} icon="solar:home-angle-bold-duotone" />,
   },
   {
     title: 'نامه‌ها',
     path: '/letters',
-    icon: icon('ic-blog'),
+    icon: <Iconify width={24} icon="solar:letter-bold-duotone" />,
   },
   {
     title: 'ثبت نامه',
     path: '/letters/new',
-    icon: icon('ic-cart'),
+    icon: <Iconify width={24} icon="mingcute:add-line" />,
   },
   {
     title: 'سازمان‌ها',
     path: '/organizations',
-    icon: <Iconify icon="codicon:organization" />,
-  },
-  {
-    title: 'ورود',
-    path: '/sign-in',
-    icon: icon('ic-lock'),
+    icon: <Iconify width={24} icon="solar:buildings-2-bold-duotone" />,
   },
 ];

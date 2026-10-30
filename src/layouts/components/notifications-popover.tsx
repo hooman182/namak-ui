@@ -102,14 +102,14 @@ export function NotificationsPopover({ data = [], sx, ...other }: NotificationsP
           }}
         >
           <Box sx={{ flexGrow: 1 }}>
-            <Typography variant="subtitle1">Notifications</Typography>
+            <Typography variant="subtitle1">اعلان‌ها</Typography>
             <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-              You have {totalUnRead} unread messages
+              {totalUnRead} پیام خوانده‌نشده دارید
             </Typography>
           </Box>
 
           {totalUnRead > 0 && (
-            <Tooltip title=" Mark all as read">
+            <Tooltip title="همه را خوانده‌شده علامت بزن">
               <IconButton color="primary" onClick={handleMarkAllAsRead}>
                 <Iconify icon="eva:done-all-fill" />
               </IconButton>
@@ -124,7 +124,7 @@ export function NotificationsPopover({ data = [], sx, ...other }: NotificationsP
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                New
+                جدید
               </ListSubheader>
             }
           >
@@ -137,7 +137,7 @@ export function NotificationsPopover({ data = [], sx, ...other }: NotificationsP
             disablePadding
             subheader={
               <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                Before that
+                قدیمی‌تر
               </ListSubheader>
             }
           >
@@ -151,7 +151,7 @@ export function NotificationsPopover({ data = [], sx, ...other }: NotificationsP
 
         <Box sx={{ p: 1 }}>
           <Button fullWidth disableRipple color="inherit">
-            View all
+            مشاهده همه
           </Button>
         </Box>
       </Popover>

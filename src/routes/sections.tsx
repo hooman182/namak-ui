@@ -17,7 +17,7 @@ export const LettersPage = lazy(() => import('src/pages/letters'));
 export const LetterCreatePage = lazy(() => import('src/pages/letter-create'));
 export const LetterDetailPage = lazy(() => import('src/pages/letter-detail'));
 export const OrganizationsPage = lazy(() => import('src/pages/organizations'));
-export const SignInPage = lazy(() => import('src/pages/sign-in'));
+export const SignInPage = lazy(() => import('@/pages/auth/sign-in'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
 const renderFallback = () => (

@@ -49,6 +49,7 @@ export function DashboardLayout({
   const theme = useTheme();
 
   const { value: open, onFalse: onClose, onTrue: onOpen } = useBoolean();
+  const { value: navCollapsed, onToggle: onToggleNav } = useBoolean();
 
   const renderHeader = () => {
     const headerSlotProps: HeaderSectionProps['slotProps'] = {
@@ -116,7 +117,12 @@ export function DashboardLayout({
        * @Sidebar
        *************************************** */
       sidebarSection={
-        <NavDesktop data={navData} layoutQuery={layoutQuery} />
+        <NavDesktop
+          data={navData}
+          layoutQuery={layoutQuery}
+          collapsed={navCollapsed}
+          onToggle={onToggleNav}
+        />
       }
       /** **************************************
        * @Footer
@@ -125,7 +131,7 @@ export function DashboardLayout({
       /** **************************************
        * @Styles
        *************************************** */
-      cssVars={{ ...dashboardLayoutVars(theme), ...cssVars }}
+      cssVars={{ ...dashboardLayoutVars(theme, navCollapsed), ...cssVars }}
       sx={[
         {
           [`& .${layoutClasses.sidebarContainer}`]: {
