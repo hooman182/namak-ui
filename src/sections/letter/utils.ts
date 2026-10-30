@@ -1,5 +1,46 @@
 import type { LetterDataType, LetterDirection } from 'src/types/letter';
 
+import { subMonths, endOfMonth, startOfMonth } from 'date-fns-jalali';
+
+// ----------------------------------------------------------------------
+
+export type LetterDateRange = {
+  from: string;
+  to: string;
+};
+
+export function formatDateFilterValue(date: Date): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
+
+export function parseDateFilterValue(value: string): Date | null {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) return null;
+
+  const [, yearString, monthString, dayString] = match;
+  const year = Number(yearString);
+  const month = Number(monthString);
+  const day = Number(dayString);
+  const date = new Date(year, month - 1, day);
+
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day
+    ? date
+    : null;
+}
+
+export function getLastMonthDateRange(date = new Date()): LetterDateRange {
+  const lastMonth = subMonths(date, 1);
+
+  return {
+    from: formatDateFilterValue(startOfMonth(lastMonth)),
+    to: formatDateFilterValue(endOfMonth(lastMonth)),
+  };
+}
+
 // ----------------------------------------------------------------------
 
 export function emptyRows(page: number, rowsPerPage: number, arrayLength: number) {
@@ -41,6 +82,8 @@ type ApplyFilterProps = {
   filterName: string;
   filterDirection: LetterDirection | 'all';
   filterOrganizationId: string;
+  filterDateFrom: string;
+  filterDateTo: string;
   getOrganizationName: (id: string) => string;
 };
 
@@ -50,6 +93,8 @@ export function applyFilter({
   filterName,
   filterDirection,
   filterOrganizationId,
+  filterDateFrom,
+  filterDateTo,
   getOrganizationName,
 }: ApplyFilterProps) {
   const stabilized = inputData.map((el, index) => [el, index] as const);
@@ -78,6 +123,14 @@ export function applyFilter({
 
   if (filterOrganizationId) {
     result = result.filter((letter) => letter.organizationId === filterOrganizationId);
+  }
+
+  if (filterDateFrom) {
+    result = result.filter((letter) => letter.letterDate >= filterDateFrom);
+  }
+
+  if (filterDateTo) {
+    result = result.filter((letter) => letter.letterDate <= filterDateTo);
   }
 
   return result;

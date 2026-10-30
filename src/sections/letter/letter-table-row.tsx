@@ -3,7 +3,9 @@ import type { LetterDataType } from 'src/types/letter';
 import { useCallback } from 'react';
 import { usePopover } from 'minimal-shared/hooks';
 
+import Box from '@mui/material/Box';
 import Popover from '@mui/material/Popover';
+import Tooltip from '@mui/material/Tooltip';
 import MenuList from '@mui/material/MenuList';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
@@ -21,6 +23,36 @@ import { Iconify } from 'src/components/iconify';
 import { LETTER_DIRECTION_LABELS } from 'src/types/letter';
 
 // ----------------------------------------------------------------------
+
+const truncatedCellSx = {
+  display: 'block',
+  maxWidth: 200,
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+  whiteSpace: 'nowrap',
+};
+
+const cellTooltipSlotProps = {
+  tooltip: {
+    sx: {
+      maxWidth: 360,
+      p: 1.5,
+      color: 'text.primary',
+      bgcolor: 'background.paper',
+      border: 1,
+      borderColor: 'divider',
+      borderRadius: 1.5,
+      boxShadow: 8,
+      fontSize: '0.875rem',
+      lineHeight: 1.8,
+      whiteSpace: 'normal',
+      overflowWrap: 'anywhere',
+    },
+  },
+  arrow: {
+    sx: { color: 'background.paper' },
+  },
+};
 
 type LetterTableRowProps = {
   row: LetterDataType;
@@ -61,14 +93,32 @@ export function LetterTableRow({
         <TableCell padding="checkbox">
           <Checkbox disableRipple checked={selected} onChange={onSelectRow} />
         </TableCell>
-        <TableCell>{row.letterNumber}</TableCell>
-        <TableCell>{row.subject}</TableCell>
+        <TableCell>
+          <Tooltip title={row.letterNumber} arrow placement="top" slotProps={cellTooltipSlotProps}>
+            <Box component="span" sx={truncatedCellSx}>
+              {row.letterNumber}
+            </Box>
+          </Tooltip>
+        </TableCell>
+        <TableCell>
+          <Tooltip title={row.subject} arrow placement="top" slotProps={cellTooltipSlotProps}>
+            <Box component="span" sx={truncatedCellSx}>
+              {row.subject}
+            </Box>
+          </Tooltip>
+        </TableCell>
         <TableCell>
           <Label color={row.direction === 'incoming' ? 'info' : 'success'}>
             {LETTER_DIRECTION_LABELS[row.direction]}
           </Label>
         </TableCell>
-        <TableCell>{organizationName}</TableCell>
+        <TableCell>
+          <Tooltip title={organizationName} arrow placement="top" slotProps={cellTooltipSlotProps}>
+            <Box component="span" sx={truncatedCellSx}>
+              {organizationName}
+            </Box>
+          </Tooltip>
+        </TableCell>
         <TableCell>{fDate(row.letterDate)}</TableCell>
         <TableCell>
           <Label variant="soft" color="default">

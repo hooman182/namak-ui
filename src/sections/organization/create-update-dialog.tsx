@@ -92,7 +92,7 @@ export function OrganizationCreateUpdateDialog({
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>{editingOrg ? 'ویرایش سازمان' : 'افزودن سازمان'}</DialogTitle>
-      <Divider/>
+      <Divider sx={{borderStyle:'dashed'}}/>
       {isPending && <LinearProgress />}
       <DialogContent sx={{ display: 'flex', flexDirection: 'column' }}>
         <Form onSubmit={onSubmit} method={method}>
@@ -101,7 +101,7 @@ export function OrganizationCreateUpdateDialog({
             <TextFieldController name="address" label="آدرس" />
             <TextFieldController name="description" label="توضیحات" />
           </Stack>
-          <Divider />
+          <Divider sx={{borderStyle:'dashed', my:1.5}}/>
           <DialogActions>
             <Button onClick={onClose}>انصراف</Button>
             <Button variant="contained" type="submit" disabled={isPending}>

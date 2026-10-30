@@ -46,23 +46,9 @@ export function DashboardView() {
 
   return (
     <DashboardContent>
-      <Box sx={{ mb: 5, display: 'flex', alignItems: 'center' }}>
-        <Typography variant="h4" sx={{ flexGrow: 1 }}>
-          داشبورد
-        </Typography>
-        <Button
-          variant="contained"
-          color="inherit"
-          startIcon={<Iconify icon="mingcute:add-line" />}
-          onClick={() => router.push('/letters/new')}
-        >
-          ثبت نامه جدید
-        </Button>
-      </Box>
-
       <Grid container spacing={3} sx={{ mb: 4 }}>
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
-          <StatCard title="کل نامه‌ها" value={stats.total} icon="solar:chat-round-dots-bold" color="primary" />
+          <StatCard title="کل نامه‌ها" value={stats.total} icon="solar:letter-bold-duotone" color="primary" />
         </Grid>
         <Grid size={{ xs: 12, sm: 6, md: 3 }}>
           <StatCard title="نامه‌های وارده" value={stats.incoming} icon="solar:bell-bing-bold-duotone" color="info" />

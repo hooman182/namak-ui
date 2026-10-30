@@ -24,7 +24,7 @@ import { LetterTableRow } from '../letter-table-row';
 import { TableEmptyRows } from '../table-empty-rows';
 import { LetterTableHead } from '../letter-table-head';
 import { LetterTableToolbar } from '../letter-table-toolbar';
-import { emptyRows, applyFilter, getLetterComparator } from '../utils';
+import { emptyRows, applyFilter, getLetterComparator, getLastMonthDateRange } from '../utils';
 
 // ----------------------------------------------------------------------
 
@@ -36,6 +36,11 @@ export function LetterListView() {
   const [filterName, setFilterName] = useState('');
   const [filterDirection, setFilterDirection] = useState<LetterDirection | 'all'>('all');
   const [filterOrganizationId, setFilterOrganizationId] = useState('');
+  const [filterDateFrom, setFilterDateFrom] = useState('');
+  const [filterDateTo, setFilterDateTo] = useState('');
+  const lastMonthRange = getLastMonthDateRange();
+  const isLastMonthSelected =
+    filterDateFrom === lastMonthRange.from && filterDateTo === lastMonthRange.to;
 
   const dataFiltered = applyFilter({
     inputData: letters,
@@ -46,10 +51,18 @@ export function LetterListView() {
     filterName,
     filterDirection,
     filterOrganizationId,
+    filterDateFrom,
+    filterDateTo,
     getOrganizationName,
   });
 
-  const notFound = !dataFiltered.length && (!!filterName || filterDirection !== 'all' || !!filterOrganizationId);
+  const notFound =
+    !dataFiltered.length &&
+    (!!filterName ||
+      filterDirection !== 'all' ||
+      !!filterOrganizationId ||
+      !!filterDateFrom ||
+      !!filterDateTo);
 
   return (
     <DashboardContent>
@@ -72,6 +85,9 @@ export function LetterListView() {
           filterName={filterName}
           filterDirection={filterDirection}
           filterOrganizationId={filterOrganizationId}
+          filterDateFrom={filterDateFrom}
+          filterDateTo={filterDateTo}
+          isLastMonthSelected={isLastMonthSelected}
           organizations={organizations}
           onFilterName={(event) => {
             setFilterName(event.target.value);
@@ -83,6 +99,31 @@ export function LetterListView() {
           }}
           onFilterOrganization={(id) => {
             setFilterOrganizationId(id);
+            table.onResetPage();
+          }}
+          onFilterDateFrom={(value) => {
+            setFilterDateFrom(value);
+            if (value && filterDateTo && value > filterDateTo) {
+              setFilterDateTo('');
+            }
+            table.onResetPage();
+          }}
+          onFilterDateTo={(value) => {
+            setFilterDateTo(value);
+            if (value && filterDateFrom && value < filterDateFrom) {
+              setFilterDateFrom('');
+            }
+            table.onResetPage();
+          }}
+          onFilterLastMonth={() => {
+            if (isLastMonthSelected) {
+              setFilterDateFrom('');
+              setFilterDateTo('');
+            } else {
+              const range = getLastMonthDateRange();
+              setFilterDateFrom(range.from);
+              setFilterDateTo(range.to);
+            }
             table.onResetPage();
           }}
         />

@@ -5,11 +5,11 @@ import { useForm } from 'react-hook-form';
 import Form from '@/providers/form-provider';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
-  TextFieldController,
-  ToggleButtonController,
-  DatePickerController,
-  AutocompleteController,
   UploadController,
+  TextFieldController,
+  DatePickerController,
+  ToggleButtonController,
+  AutocompleteController,
 } from '@/components/composite/form-controller';
 
 import Box from '@mui/material/Box';
@@ -73,23 +73,19 @@ export function LetterForm({
     <Card sx={{ p: 3 }}>
       <Form onSubmit={handleSubmit(onSubmit)} method={method}>
         <Stack spacing={3}>
-          <Typography variant="h6">اطلاعات نامه</Typography>
-
-          <Stack direction={{ xs: 'column', md: 'row' }} spacing={2}>
-            <TextFieldController name="title" label="موضوع" fullWidth />
-
-            <TextFieldController name="letterNumber" label="شماره نامه" fullWidth />
-          </Stack>
-
           <Stack
-            direction={{ xs: 'column', md: 'row' }}
-            spacing={{ xs: 2, md: 3 }}
-            sx={{ alignItems: 'flex-start' }}
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            sx={{
+              alignItems: { xs: 'flex-start', sm: 'center' },
+              justifyContent: 'space-between',
+            }}
           >
-            {/* Letter Type */}
-            <Stack spacing={1} sx={{ flex: 1, minWidth: 0 }}>
+            <Typography variant="h6">اطلاعات نامه</Typography>
+
+            <Stack spacing={1} sx={{ alignItems: 'center' }} direction="row">
               <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 500 }}>
-                نوع نامه
+                نوع نامه:
               </Typography>
               <ToggleButtonController
                 name="letterType"
@@ -99,28 +95,43 @@ export function LetterForm({
                 ]}
               />
             </Stack>
-
-            {/* Letter Date */}
-            <Stack spacing={1} sx={{ flex: 1, minWidth: 0 }}>
-              <DatePickerController name="letterDate" label="تاریخ نامه" />
-            </Stack>
           </Stack>
 
-          <AutocompleteController
-            name="organization"
-            options={organizations}
-            label="سازمان"
-            getOptionLabel={(option) => option.name}
-          />
-
-          <TextFieldController name="term" label="توضیحات" fullWidth multiline rows={3} />
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: 'minmax(0, 1fr)',
+                sm: 'repeat(2, minmax(0, 1fr))',
+              },
+              gap: { xs: 2, md: 2.5 },
+              alignItems: 'start',
+            }}
+          >
+            <TextFieldController name="title" label="موضوع" fullWidth />
+            <TextFieldController name="letterNumber" label="شماره نامه" fullWidth />
+            <DatePickerController name="letterDate" label="تاریخ نامه" />
+            <AutocompleteController
+              name="organization"
+              options={organizations}
+              label="سازمان"
+              getOptionLabel={(option) => option.name}
+            />
+          </Box>
 
           <Box>
-            <Typography variant="subtitle2" sx={{ mb: 1.5 }}>
-              پیوست‌ها
+            <Typography variant="h6" sx={{ mb: 2 }}>
+              توضیحات و پیوست‌ها
             </Typography>
-
-            <UploadController name="attachments" />
+            <Stack spacing={3}>
+              <TextFieldController name="term" label="توضیحات" fullWidth multiline rows={3} />
+              <Box>
+                <Typography variant="subtitle2" sx={{ mb: 1.5 }}>
+                  پیوست‌ها
+                </Typography>
+                <UploadController name="attachments" />
+              </Box>
+            </Stack>
           </Box>
 
           <Stack direction="row-reverse" spacing={1.5}>
