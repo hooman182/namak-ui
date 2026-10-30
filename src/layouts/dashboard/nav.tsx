@@ -4,15 +4,17 @@ import { useEffect } from 'react';
 import { varAlpha } from 'minimal-shared/utils';
 
 import Box from '@mui/material/Box';
+import List from '@mui/material/List';
 import Stack from '@mui/material/Stack';
 import Divider from '@mui/material/Divider';
+import Popover from '@mui/material/Popover';
 import Tooltip from '@mui/material/Tooltip';
 import ListItem from '@mui/material/ListItem';
 import { useTheme } from '@mui/material/styles';
+import ButtonBase from '@mui/material/ButtonBase';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
-import Drawer, { drawerClasses } from '@mui/material/Drawer';
 
 import { usePathname } from 'src/routes/hooks';
 import { RouterLink } from 'src/routes/components';
@@ -73,12 +75,7 @@ export function NavDesktop({
         ...sx,
       }}
     >
-      <NavContent
-        data={data}
-        slots={slots}
-        collapsed={collapsed}
-        onToggle={onToggle}
-      />
+      <NavContent data={data} slots={slots} collapsed={collapsed} onToggle={onToggle} />
     </Box>
   );
 }
@@ -86,37 +83,160 @@ export function NavDesktop({
 // ----------------------------------------------------------------------
 
 export function NavMobile({
-  sx,
   data,
-  open,
-  slots,
+  anchorEl,
   onClose,
-}: NavContentProps & { open: boolean; onClose: () => void }) {
+}: {
+  data: NavItem[];
+  anchorEl: HTMLElement | null;
+  onClose: () => void;
+}) {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (open) {
+    if (anchorEl) {
       onClose();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]);
 
   return (
-    <Drawer
-      open={open}
+    <Popover
+      open={Boolean(anchorEl)}
+      anchorEl={anchorEl}
       onClose={onClose}
+      anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      transformOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       sx={{
-        [`& .${drawerClasses.paper}`]: {
-          pt: 2.5,
-          px: 2.5,
-          overflow: 'unset',
-          width: 'var(--layout-nav-mobile-width)',
-          ...sx,
+        '& .MuiPopover-paper': {
+          mb: 1,
+          width: 240,
+          maxHeight: '60vh',
+          borderRadius: 2,
+          boxShadow: 8,
         },
       }}
     >
-      <NavContent data={data} slots={slots} />
-    </Drawer>
+      <List disablePadding sx={{ p: 1 }}>
+        {data.map((item) => {
+          const isActived = item.path === pathname;
+
+          return (
+            <ListItem disableGutters disablePadding key={item.title}>
+              <ListItemButton
+                component={RouterLink}
+                href={item.path}
+                onClick={onClose}
+                selected={isActived}
+                sx={{
+                  minHeight: 48,
+                  gap: 1.5,
+                  borderRadius: 1,
+                  color: isActived ? 'primary.main' : 'text.primary',
+                }}
+              >
+                {item.icon}
+                <Box component="span" sx={{ flexGrow: 1 }}>
+                  {item.title}
+                </Box>
+                {item.info}
+              </ListItemButton>
+            </ListItem>
+          );
+        })}
+      </List>
+    </Popover>
+  );
+}
+
+// ----------------------------------------------------------------------
+
+export function NavMobileBottom({
+  data,
+  layoutQuery,
+  onMoreClick,
+}: {
+  data: NavItem[];
+  layoutQuery: Breakpoint;
+  onMoreClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
+}) {
+  const pathname = usePathname();
+  const theme = useTheme();
+
+  return (
+    <Box
+      component="nav"
+      aria-label="ناوبری اصلی"
+      sx={{
+        position: 'fixed',
+        bottom: `calc(${theme.spacing(2)} + env(safe-area-inset-bottom))`,
+        left: '50%',
+        right: 'auto',
+        width: 'calc(100% - 48px)',
+        transform: 'translateX(-50%)',
+        zIndex: theme.zIndex.appBar,
+        display: 'block',
+        bgcolor: 'background.paper',
+        borderRadius: 2,
+        boxShadow: theme.shadows[8],
+        [theme.breakpoints.up(layoutQuery)]: {
+          display: 'none',
+        },
+      }}
+    >
+      <Box
+        component="ul"
+        sx={{
+          display: 'flex',
+          alignItems: 'stretch',
+          justifyContent: 'space-around',
+          m: 0,
+          p: 0,
+          listStyle: 'none',
+        }}
+      >
+        {data.map((item) => {
+          const isActived = item.path === pathname;
+
+          return (
+            <Box component="li" key={item.title} sx={{ flex: 1 }}>
+              <ButtonBase
+                component={RouterLink}
+                href={item.path}
+                aria-label={item.title}
+                aria-current={isActived ? 'page' : undefined}
+                title={item.title}
+                sx={{
+                  width: 1,
+                  minHeight: 64,
+                  color: isActived ? 'primary.main' : 'text.secondary',
+                  '&:hover': { bgcolor: 'action.hover' },
+                }}
+              >
+                {item.icon}
+              </ButtonBase>
+            </Box>
+          );
+        })}
+        <Box component="li" sx={{ flex: 1 }}>
+          <ButtonBase
+            component="button"
+            type="button"
+            onClick={onMoreClick}
+            aria-label="بیشتر"
+            title="بیشتر"
+            sx={{
+              width: 1,
+              minHeight: 64,
+              color: 'text.secondary',
+              '&:hover': { bgcolor: 'action.hover' },
+            }}
+          >
+            <Iconify width={26} icon="eva:more-vertical-fill" />
+          </ButtonBase>
+        </Box>
+      </Box>
+    </Box>
   );
 }
 
@@ -133,7 +253,6 @@ export function NavContent({
 
   return (
     <>
-
       <Stack
         direction="row"
         spacing={collapsed ? 0 : 2}

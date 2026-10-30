@@ -9,6 +9,7 @@ export function dashboardLayoutVars(theme: Theme, navCollapsed = false) {
     '--layout-nav-vertical-width': navCollapsed ? '88px' : '300px',
     '--layout-dashboard-content-pt': theme.spacing(1),
     '--layout-dashboard-content-pb': theme.spacing(8),
+    '--layout-dashboard-content-pb-mobile': `calc(${theme.spacing(10)} + env(safe-area-inset-bottom))`,
     '--layout-dashboard-content-px': theme.spacing(5),
   };
 }
