@@ -8,6 +8,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFnsJalali } from '@mui/x-date-pickers/AdapterDateFnsJalali';
 
 import { ThemeProvider } from 'src/theme/theme-provider';
+import { PaletteProvider, paletteStorageManager } from 'src/contexts/palette-context';
 
 // ----------------------------------------------------------------------
 
@@ -21,13 +22,20 @@ const cacheRtl = createCache({
 export default function CustomThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <CacheProvider value={cacheRtl}>
-      <ThemeProvider themeOverrides={{ direction: 'rtl' }}>
+      <ThemeProvider
+        themeOverrides={{ direction: 'rtl' }}
+        defaultMode="light"
+        modeStorageKey="minimal__palette-mode"
+        colorSchemeStorageKey="minimal__palette"
+        storageManager={paletteStorageManager}
+        noSsr
+      >
         <LocalizationProvider
           dateAdapter={AdapterDateFnsJalali}
           adapterLocale={dateFnsFaIR}
           localeText={faIR.components.MuiLocalizationProvider.defaultProps.localeText}
         >
-          {children}
+          <PaletteProvider>{children}</PaletteProvider>
         </LocalizationProvider>
       </ThemeProvider>
     </CacheProvider>

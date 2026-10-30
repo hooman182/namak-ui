@@ -16,79 +16,93 @@ export type PaletteColorSet = Record<
   >;
 };
 
-export type PaletteName = 'light' | 'dark' | 'ocean' | 'forest';
+export type PaletteName =
+  | 'light'
+  | 'dark'
+  | 'ocean'
+  | 'forest'
+  | 'rose'
+  | 'sunset'
+  | 'midnight'
+  | 'aurora'
+  | 'ember';
 
 type PaletteEntry = {
   label: string;
   icon: string;
   colorScheme: 'light' | 'dark';
   mode: 'light' | 'dark';
+  background: {
+    paper: string;
+    default: string;
+    neutral: string;
+  };
   palette: PaletteColorSet;
 };
 
 // ----------------------------------------------------------------------
 
 const grey = {
-  '50': '#FCFDFD',
-  '100': '#F9FAFB',
-  '200': '#F4F6F8',
-  '300': '#DFE3E8',
-  '400': '#C4CDD5',
-  '500': '#919EAB',
-  '600': '#637381',
-  '700': '#454F5B',
-  '800': '#1C252E',
-  '900': '#141A21',
+  '50': '#FEFDFF',
+  '100': '#F8F7FC',
+  '200': '#F0EFF7',
+  '300': '#E2E0EC',
+  '400': '#C8C5D5',
+  '500': '#9692A6',
+  '600': '#6E6A7D',
+  '700': '#504D60',
+  '800': '#302E3D',
+  '900': '#1D1B29',
 } as const;
 
 const darkGrey = {
-  '50': '#141A21',
-  '100': '#1C252E',
-  '200': '#283241',
-  '300': '#3A4556',
-  '400': '#566476',
-  '500': '#7B8A9E',
-  '600': '#A0ADB9',
-  '700': '#C1CBD3',
-  '800': '#DFE3E8',
-  '900': '#F4F6F8',
+  '50': '#191722',
+  '100': '#211F2D',
+  '200': '#302D3D',
+  '300': '#454253',
+  '400': '#646173',
+  '500': '#898699',
+  '600': '#AAA7B8',
+  '700': '#C7C4D2',
+  '800': '#E0DEE8',
+  '900': '#F5F3FA',
 } as const;
 
 const common = { black: '#000000', white: '#FFFFFF' };
 
 const info = {
-  lighter: '#CAFDF5',
-  light: '#61F3F3',
-  main: '#00B8D9',
-  dark: '#006C9C',
-  darker: '#003768',
+  lighter: '#D5F3F8',
+  light: '#7CC9D8',
+  main: '#278CA2',
+  dark: '#176A7D',
+  darker: '#104654',
   contrastText: '#FFFFFF',
 };
 
 const success = {
-  lighter: '#D3FCD2',
-  light: '#77ED8B',
-  main: '#22C55E',
-  dark: '#118D57',
-  darker: '#065E49',
-  contrastText: '#ffffff',
+  lighter: '#DDF5E8',
+  light: '#83D2A6',
+  main: '#27966F',
+  dark: '#187151',
+  darker: '#104C39',
+  contrastText: '#FFFFFF',
 };
 
 const warning = {
-  lighter: '#FFF5CC',
-  light: '#FFD666',
-  main: '#FFAB00',
-  dark: '#B76E00',
-  darker: '#7A4100',
-  contrastText: '#1C252E',
+  lighter: '#FFF0D5',
+  light: '#F2BE67',
+  main: '#D99127',
+  dark: '#A66816',
+  darker: '#75480F',
+  contrastText: '#30200C',
 };
 
 const error = {
-  lighter: '#FFE9D5',
-  light: '#FFAC82',
-  main: '#FF5630',
-  dark: '#B71D18',
-  darker: '#7A0916',
+  lighter: '#FBE2E4',
+  light: '#EA9299',
+  main: '#D65C68',
+  dark: '#A23A47',
+  darker: '#702630',
   contrastText: '#FFFFFF',
 };
 
@@ -100,21 +114,26 @@ export const PALETTES: Record<PaletteName, PaletteEntry> = {
     icon: '☀️',
     colorScheme: 'light',
     mode: 'light',
+    background: {
+      paper: '#FFFFFF',
+      default: '#F7F8FC',
+      neutral: '#EEF1F7',
+    },
     palette: {
       primary: {
-        lighter: '#D0ECFE',
-        light: '#73BAFB',
-        main: '#1877F2',
-        dark: '#0C44AE',
-        darker: '#042174',
+        lighter: '#E8E4FF',
+        light: '#A69BFA',
+        main: '#6558D3',
+        dark: '#4C40AD',
+        darker: '#352D7D',
         contrastText: '#FFFFFF',
       },
       secondary: {
-        lighter: '#EFD6FF',
-        light: '#C684FF',
-        main: '#8E33FF',
-        dark: '#5119B7',
-        darker: '#27097A',
+        lighter: '#FCE6E0',
+        light: '#F1A08E',
+        main: '#D97764',
+        dark: '#AD594B',
+        darker: '#783D35',
         contrastText: '#FFFFFF',
       },
       info,
@@ -130,22 +149,27 @@ export const PALETTES: Record<PaletteName, PaletteEntry> = {
     icon: '🌙',
     colorScheme: 'dark',
     mode: 'dark',
+    background: {
+      paper: '#20212B',
+      default: '#181922',
+      neutral: '#2A2B37',
+    },
     palette: {
       primary: {
-        lighter: '#2B4A7A',
-        light: '#3D6DB5',
-        main: '#4E8FE6',
-        dark: '#6EA8F0',
-        darker: '#95C3F7',
-        contrastText: '#0B1D33',
+        lighter: '#403A68',
+        light: '#8174DE',
+        main: '#A69BFA',
+        dark: '#C3BBFF',
+        darker: '#DDD8FF',
+        contrastText: '#201C3A',
       },
       secondary: {
-        lighter: '#3D1F6B',
-        light: '#5A2E9E',
-        main: '#7B42D1',
-        dark: '#9B6BE0',
-        darker: '#BC96EC',
-        contrastText: '#F3E8FF',
+        lighter: '#603A3A',
+        light: '#C8796A',
+        main: '#F1A08E',
+        dark: '#FFBDAF',
+        darker: '#FFD7CE',
+        contrastText: '#351D1B',
       },
       info,
       success,
@@ -160,21 +184,26 @@ export const PALETTES: Record<PaletteName, PaletteEntry> = {
     icon: '🌊',
     colorScheme: 'light',
     mode: 'light',
+    background: {
+      paper: '#FFFFFF',
+      default: '#F4F9FA',
+      neutral: '#EAF3F5',
+    },
     palette: {
       primary: {
-        lighter: '#C2F0F7',
-        light: '#5FCFDD',
-        main: '#0CA5B8',
-        dark: '#067A8C',
-        darker: '#034F5C',
+        lighter: '#D2F2F1',
+        light: '#64C4C1',
+        main: '#168C8A',
+        dark: '#106C6B',
+        darker: '#0A4D4C',
         contrastText: '#FFFFFF',
       },
       secondary: {
-        lighter: '#D4F0FE',
-        light: '#72BBF5',
-        main: '#1A8FE3',
-        dark: '#0B65B0',
-        darker: '#053D73',
+        lighter: '#E3EAFE',
+        light: '#91A9E8',
+        main: '#637BC4',
+        dark: '#485E9E',
+        darker: '#344574',
         contrastText: '#FFFFFF',
       },
       info,
@@ -190,35 +219,215 @@ export const PALETTES: Record<PaletteName, PaletteEntry> = {
     icon: '🌲',
     colorScheme: 'light',
     mode: 'light',
+    background: {
+      paper: '#FFFFFF',
+      default: '#F6F8F4',
+      neutral: '#EEF2E9',
+    },
     palette: {
       primary: {
-        lighter: '#D5F5E3',
-        light: '#82D9A5',
-        main: '#2DAF6E',
-        dark: '#1B7F4F',
-        darker: '#0E5535',
+        lighter: '#DDF3E5',
+        light: '#87C69B',
+        main: '#438C5D',
+        dark: '#2F6F46',
+        darker: '#205034',
         contrastText: '#FFFFFF',
       },
       secondary: {
-        lighter: '#E8F5E9',
-        light: '#A5D6A7',
-        main: '#66BB6A',
-        dark: '#388E3C',
-        darker: '#1B5E20',
+        lighter: '#E9F0D8',
+        light: '#B4C982',
+        main: '#849D52',
+        dark: '#64793D',
+        darker: '#46572B',
         contrastText: '#FFFFFF',
       },
       info,
       success: {
-        lighter: '#C8E6C9',
-        light: '#81C784',
-        main: '#4CAF50',
-        dark: '#388E3C',
-        darker: '#1B5E20',
+        lighter: '#DDF5E8',
+        light: '#83D2A6',
+        main: '#27966F',
+        dark: '#187151',
+        darker: '#104C39',
         contrastText: '#FFFFFF',
       },
       warning,
       error,
       grey,
+      common,
+    },
+  },
+  rose: {
+    label: 'Rose',
+    icon: '🌸',
+    colorScheme: 'light',
+    mode: 'light',
+    background: {
+      paper: '#FFFFFF',
+      default: '#FAF6F8',
+      neutral: '#F4ECF1',
+    },
+    palette: {
+      primary: {
+        lighter: '#FCE4EF',
+        light: '#E895B8',
+        main: '#C74F83',
+        dark: '#9E3565',
+        darker: '#702447',
+        contrastText: '#FFFFFF',
+      },
+      secondary: {
+        lighter: '#F0E5F8',
+        light: '#B995D1',
+        main: '#8957AA',
+        dark: '#684080',
+        darker: '#482B59',
+        contrastText: '#FFFFFF',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey,
+      common,
+    },
+  },
+  sunset: {
+    label: 'Sunset',
+    icon: '🌅',
+    colorScheme: 'light',
+    mode: 'light',
+    background: {
+      paper: '#FFFFFF',
+      default: '#FBF7F1',
+      neutral: '#F5EEE2',
+    },
+    palette: {
+      primary: {
+        lighter: '#FCE8D7',
+        light: '#E9A06B',
+        main: '#C86A35',
+        dark: '#9E4D27',
+        darker: '#71361D',
+        contrastText: '#FFFFFF',
+      },
+      secondary: {
+        lighter: '#FAEDCF',
+        light: '#D9B55E',
+        main: '#A9852B',
+        dark: '#80631E',
+        darker: '#594516',
+        contrastText: '#FFFFFF',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey,
+      common,
+    },
+  },
+  midnight: {
+    label: 'نیمه‌شب',
+    icon: '🌌',
+    colorScheme: 'dark',
+    mode: 'dark',
+    background: {
+      paper: '#1E1D2A',
+      default: '#171622',
+      neutral: '#292738',
+    },
+    palette: {
+      primary: {
+        lighter: '#38315F',
+        light: '#8274E6',
+        main: '#A99BFF',
+        dark: '#C4BAFF',
+        darker: '#DED8FF',
+        contrastText: '#211B3D',
+      },
+      secondary: {
+        lighter: '#16464A',
+        light: '#4EBFC2',
+        main: '#77D8D6',
+        dark: '#A4E9E3',
+        darker: '#D0F5F0',
+        contrastText: '#123436',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey: darkGrey,
+      common,
+    },
+  },
+  aurora: {
+    label: 'شفق قطبی',
+    icon: '✨',
+    colorScheme: 'dark',
+    mode: 'dark',
+    background: {
+      paper: '#1C2421',
+      default: '#151C19',
+      neutral: '#27302B',
+    },
+    palette: {
+      primary: {
+        lighter: '#174B43',
+        light: '#55CDAA',
+        main: '#75E2BD',
+        dark: '#A1F0D2',
+        darker: '#CFF8E7',
+        contrastText: '#12352E',
+      },
+      secondary: {
+        lighter: '#4A4A25',
+        light: '#C4C86A',
+        main: '#DFE486',
+        dark: '#EAF0AD',
+        darker: '#F4F7D2',
+        contrastText: '#353619',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey: darkGrey,
+      common,
+    },
+  },
+  ember: {
+    label: 'اخگر',
+    icon: '🔥',
+    colorScheme: 'dark',
+    mode: 'dark',
+    background: {
+      paper: '#25201F',
+      default: '#1B1716',
+      neutral: '#302522',
+    },
+    palette: {
+      primary: {
+        lighter: '#60352E',
+        light: '#E88768',
+        main: '#F5A17E',
+        dark: '#FFBDA3',
+        darker: '#FFD8C9',
+        contrastText: '#44251F',
+      },
+      secondary: {
+        lighter: '#59431F',
+        light: '#D9B35E',
+        main: '#F0CB70',
+        dark: '#F7DB98',
+        darker: '#FBEBC2',
+        contrastText: '#3D3018',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey: darkGrey,
       common,
     },
   },
@@ -230,4 +439,9 @@ export const PALETTE_LABELS: Record<PaletteName, string> = {
   dark: PALETTES.dark.label,
   ocean: PALETTES.ocean.label,
   forest: PALETTES.forest.label,
+  rose: PALETTES.rose.label,
+  sunset: PALETTES.sunset.label,
+  midnight: PALETTES.midnight.label,
+  aurora: PALETTES.aurora.label,
+  ember: PALETTES.ember.label,
 };

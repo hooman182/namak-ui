@@ -1,10 +1,30 @@
-import { useMemo, useState, useContext, useCallback, createContext, useLayoutEffect } from 'react';
+import type { StorageManager } from '@mui/system/cssVars';
+
+import { useMemo, useContext, createContext } from 'react';
+
+import { useColorScheme } from '@mui/material/styles';
 
 import { PALETTE_LABELS, type PaletteName } from 'src/theme/palettes';
 
 // ----------------------------------------------------------------------
 
 const STORAGE_KEY = 'minimal__palette';
+
+// ----------------------------------------------------------------------
+
+function isPaletteName(value: string | null | undefined): value is PaletteName {
+  return (
+    value === 'light' ||
+    value === 'dark' ||
+    value === 'ocean' ||
+    value === 'forest' ||
+    value === 'rose' ||
+    value === 'sunset' ||
+    value === 'midnight' ||
+    value === 'aurora' ||
+    value === 'ember'
+  );
+}
 
 // ----------------------------------------------------------------------
 
@@ -16,37 +36,65 @@ interface PaletteContextType {
 
 // ----------------------------------------------------------------------
 
-function getStoredScheme(): PaletteName {
-  try {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored === 'light' || stored === 'dark' || stored === 'ocean' || stored === 'forest') {
-      return stored;
-    }
-  } catch {}
-  return 'light';
-}
+export const paletteStorageManager: StorageManager = ({ key, storageWindow }) => {
+  const isPaletteStorageKey =
+    key === `${STORAGE_KEY}-light` || key === `${STORAGE_KEY}-dark`;
+  const storageKey = isPaletteStorageKey ? STORAGE_KEY : key;
+
+  return {
+    get(defaultValue) {
+      try {
+        const value = storageWindow?.localStorage.getItem(storageKey);
+
+        if (isPaletteStorageKey && !isPaletteName(value)) {
+          return defaultValue;
+        }
+
+        return value ?? defaultValue;
+      } catch (error) {
+        console.warn('Unable to read the saved color palette.', error);
+        return defaultValue;
+      }
+    },
+    set(value) {
+      try {
+        storageWindow?.localStorage.setItem(storageKey, String(value));
+      } catch (error) {
+        console.warn('Unable to save the selected color palette.', error);
+      }
+    },
+    subscribe(handler) {
+      if (!storageWindow) {
+        return () => {};
+      }
+
+      const handleStorage = (event: StorageEvent) => {
+        if (event.key === storageKey) {
+          handler(event.newValue);
+        }
+      };
+
+      storageWindow.addEventListener('storage', handleStorage);
+      return () => storageWindow.removeEventListener('storage', handleStorage);
+    },
+  };
+};
 
 // ----------------------------------------------------------------------
 
 const PaletteContext = createContext<PaletteContextType | null>(null);
 
 export function PaletteProvider({ children }: { children: React.ReactNode }) {
-  const [scheme, setSchemeState] = useState<PaletteName>(getStoredScheme);
-
-  const setScheme = useCallback((newScheme: PaletteName) => {
-    setSchemeState(newScheme);
-    try {
-      localStorage.setItem(STORAGE_KEY, newScheme);
-    } catch {}
-  }, []);
-
-  useLayoutEffect(() => {
-    document.documentElement.setAttribute('data-color-scheme', scheme);
-  });
+  const { colorScheme, setColorScheme } = useColorScheme();
+  const scheme = isPaletteName(colorScheme) ? colorScheme : 'light';
 
   const value = useMemo(
-    () => ({ scheme, schemes: PALETTE_LABELS, setScheme }),
-    [scheme, setScheme]
+    () => ({
+      scheme,
+      schemes: PALETTE_LABELS,
+      setScheme: (newScheme: PaletteName) => setColorScheme(newScheme),
+    }),
+    [scheme, setColorScheme]
   );
 
   return <PaletteContext.Provider value={value}>{children}</PaletteContext.Provider>;

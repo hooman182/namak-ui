@@ -13,7 +13,17 @@ import { PALETTES, type PaletteName } from 'src/theme/palettes';
 
 // ----------------------------------------------------------------------
 
-const PALETTE_NAMES: PaletteName[] = ['light', 'dark', 'ocean', 'forest'];
+const PALETTE_NAMES: PaletteName[] = [
+  'light',
+  'dark',
+  'ocean',
+  'forest',
+  'rose',
+  'sunset',
+  'midnight',
+  'aurora',
+  'ember',
+];
 
 // ----------------------------------------------------------------------
 

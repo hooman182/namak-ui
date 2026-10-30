@@ -17,7 +17,15 @@ import type { CustomShadows } from './core/custom-shadows';
  * @see https://github.com/mui/material-ui/blob/master/packages/mui-material/src/styles/createTheme.ts
  */
 
-export type ThemeColorScheme = SupportedColorScheme | 'ocean' | 'forest';
+export type ThemeColorScheme =
+  | SupportedColorScheme
+  | 'ocean'
+  | 'forest'
+  | 'rose'
+  | 'sunset'
+  | 'midnight'
+  | 'aurora'
+  | 'ember';
 
 export type PaletteLabel = {
   label: string;

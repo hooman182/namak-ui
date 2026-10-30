@@ -33,6 +33,11 @@ export const themeConfig: ThemeConfig = {
     dark: PALETTES.dark.palette,
     ocean: PALETTES.ocean.palette,
     forest: PALETTES.forest.palette,
+    rose: PALETTES.rose.palette,
+    sunset: PALETTES.sunset.palette,
+    midnight: PALETTES.midnight.palette,
+    aurora: PALETTES.aurora.palette,
+    ember: PALETTES.ember.palette,
   },
   /** **************************************
    * Css variables

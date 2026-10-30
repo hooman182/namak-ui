@@ -90,9 +90,9 @@ export const grey = createPaletteChannel(themeConfig.palette.light.grey);
 // Text color
 export const text = {
   light: createPaletteChannel({
-    primary: grey[800],
-    secondary: grey[600],
-    disabled: grey[500],
+    primary: '#302E3D',
+    secondary: '#6E6A7D',
+    disabled: '#9692A6',
   }),
   dark: createPaletteChannel({
     primary: '#F4F6F8',
@@ -105,13 +105,13 @@ export const text = {
 export const background = {
   light: createPaletteChannel({
     paper: '#FFFFFF',
-    default: grey[100],
-    neutral: grey[200],
+    default: '#F7F8FC',
+    neutral: '#EEF1F7',
   }),
   dark: createPaletteChannel({
-    paper: '#1C252E',
-    default: '#141A21',
-    neutral: '#283241',
+    paper: '#20212B',
+    default: '#181922',
+    neutral: '#2A2B37',
   }),
 };
 
@@ -148,16 +148,16 @@ export const basePalette = {
 };
 
 const darkGrey = createPaletteChannel({
-  '50': '#141A21',
-  '100': '#1C252E',
-  '200': '#283241',
-  '300': '#3A4556',
-  '400': '#566476',
-  '500': '#7B8A9E',
-  '600': '#A0ADB9',
-  '700': '#C1CBD3',
-  '800': '#DFE3E8',
-  '900': '#F4F6F8',
+  '50': '#191722',
+  '100': '#211F2D',
+  '200': '#302D3D',
+  '300': '#454253',
+  '400': '#646173',
+  '500': '#898699',
+  '600': '#AAA7B8',
+  '700': '#C7C4D2',
+  '800': '#E0DEE8',
+  '900': '#F5F3FA',
 });
 
 export const palette: Partial<Record<ThemeColorScheme, ColorSystemOptions['palette']>> = {

@@ -1,4 +1,5 @@
 import type {} from '@mui/lab/themeAugmentation';
+import type {} from '@mui/x-date-pickers/themeAugmentation';
 import type {} from '@mui/material/themeCssVarsAugmentation';
 
 import type { FontStyleExtend } from './core/typography';
@@ -24,6 +25,16 @@ import type {
  * @from {@link file://./core/palette.ts}
  */
 declare module '@mui/material/styles' {
+  interface ColorSchemeOverrides {
+    ocean: true;
+    forest: true;
+    rose: true;
+    sunset: true;
+    midnight: true;
+    aurora: true;
+    ember: true;
+  }
+
   // grey
   interface Color extends GreyExtend {}
   // text

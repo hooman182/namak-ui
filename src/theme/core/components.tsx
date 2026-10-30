@@ -6,10 +6,13 @@ import SvgIcon from '@mui/material/SvgIcon';
 
 // ----------------------------------------------------------------------
 
+const getElementBorderRadius = (theme: Theme) => Number(theme.shape.borderRadius) * 1.5;
+const getCardBorderRadius = (theme: Theme) => Number(theme.shape.borderRadius) * 2;
+
 const MuiBackdrop: Components<Theme>['MuiBackdrop'] = {
   styleOverrides: {
     root: ({ theme }) => ({
-      backgroundColor: varAlpha(theme.vars.palette.grey['600Channel'], 0.25),
+      backgroundColor: varAlpha(theme.vars.palette.grey['300Channel'], 0.25),
     }),
     invisible: {
       background: 'transparent',
@@ -22,30 +25,30 @@ const MuiButton: Components<Theme>['MuiButton'] = {
     disableElevation: true,
   },
   styleOverrides: {
+    root: ({ theme }) => ({
+      borderRadius: getElementBorderRadius(theme),
+      minHeight: 44,
+      padding: theme.spacing(1, 2.25),
+    }),
+    sizeSmall: {
+      minHeight: 36,
+    },
     sizeLarge: {
-      minHeight: 48,
+      minHeight: 52,
     },
   },
   variants: [
     {
       props: {
         color: 'inherit',
+        variant: 'contained',
       },
       style: ({ theme }) => ({
-        color: theme.vars.palette.common.white,
-        backgroundColor:
-          theme.vars.palette.grey[800],
+        color: theme.vars.palette.primary.contrastText,
+        backgroundColor: theme.vars.palette.primary.main,
         '&:hover': {
-          color: theme.vars.palette.common.white,
-          backgroundColor:
-            theme.vars.palette.grey[800],
+          backgroundColor: theme.vars.palette.primary.dark,
         },
-        ...theme.applyStyles('dark', {
-          backgroundColor: theme.vars.palette.primary.main,
-          '&:hover': {
-            backgroundColor: theme.vars.palette.primary.light,
-          },
-        }),
       }),
     },
   ],
@@ -57,7 +60,7 @@ const MuiCard: Components<Theme>['MuiCard'] = {
       zIndex: 0,
       position: 'relative',
       boxShadow: theme.vars.customShadows.card,
-      borderRadius: Number(theme.shape.borderRadius) * 2,
+      borderRadius: getCardBorderRadius(theme),
     }),
   },
 };
@@ -82,6 +85,20 @@ const MuiCardHeader: Components<Theme>['MuiCardHeader'] = {
 
 const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
   styleOverrides: {
+    root: ({ theme }) => ({
+      borderRadius: getElementBorderRadius(theme),
+    }),
+    notchedOutline: ({ theme }) => ({
+      borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.2),
+    }),
+  },
+};
+
+const MuiPickersOutlinedInput: Components<Theme>['MuiPickersOutlinedInput'] = {
+  styleOverrides: {
+    root: ({ theme }) => ({
+      borderRadius: getElementBorderRadius(theme),
+    }),
     notchedOutline: ({ theme }) => ({
       borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.2),
     }),
@@ -91,7 +108,10 @@ const MuiOutlinedInput: Components<Theme>['MuiOutlinedInput'] = {
 const MuiPaper: Components<Theme>['MuiPaper'] = {
   defaultProps: { elevation: 0 },
   styleOverrides: {
-    root: { backgroundImage: 'none' },
+    root: ({ theme }) => ({
+      backgroundImage: 'none',
+      borderRadius: getElementBorderRadius(theme),
+    }),
     outlined: ({ theme }) => ({
       borderColor: varAlpha(theme.vars.palette.grey['500Channel'], 0.16),
     }),
@@ -113,6 +133,19 @@ const MuiMenuItem: Components<Theme>['MuiMenuItem'] = {
   styleOverrides: {
     root: ({ theme }) => ({
       ...theme.typography.body2,
+      borderRadius: getElementBorderRadius(theme),
+    }),
+  },
+};
+
+const MuiCssBaseline: Components<Theme>['MuiCssBaseline'] = {
+  styleOverrides: {
+    body: ({ theme }: { theme: Theme }) => ({
+      minHeight: '100vh',
+      backgroundColor: theme.vars.palette.background.default,
+      backgroundImage: `radial-gradient(ellipse at 0% 0%, ${varAlpha(theme.vars.palette.primary.lightChannel, 0.16)} 0%, transparent 58%), radial-gradient(ellipse at 100% 100%, ${varAlpha(theme.vars.palette.secondary.lightChannel, 0.12)} 0%, transparent 56%), linear-gradient(135deg, ${varAlpha(theme.vars.palette.primary.lightChannel, 0.06)} 0%, transparent 65%)`,
+      backgroundAttachment: 'fixed',
+      backgroundRepeat: 'no-repeat',
     }),
   },
 };
@@ -177,9 +210,11 @@ const MuiRadio: Components<Theme>['MuiRadio'] = {
 // ----------------------------------------------------------------------
 
 export const components = {
+  MuiCssBaseline,
   MuiCard,
   MuiLink,
   MuiPaper,
+  MuiPickersOutlinedInput,
   MuiRadio,
   MuiButton,
   MuiBackdrop,
