@@ -33,6 +33,10 @@ declare module '@mui/material/styles' {
     midnight: true;
     aurora: true;
     ember: true;
+    slate: true;
+    plum: true;
+    blue: true;
+    mist: true;
   }
 
   // grey

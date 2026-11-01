@@ -22,7 +22,11 @@ function isPaletteName(value: string | null | undefined): value is PaletteName {
     value === 'sunset' ||
     value === 'midnight' ||
     value === 'aurora' ||
-    value === 'ember'
+    value === 'ember' ||
+    value === 'slate' ||
+    value === 'plum' ||
+    value === 'blue' ||
+    value === 'mist'
   );
 }
 
@@ -37,8 +41,7 @@ interface PaletteContextType {
 // ----------------------------------------------------------------------
 
 export const paletteStorageManager: StorageManager = ({ key, storageWindow }) => {
-  const isPaletteStorageKey =
-    key === `${STORAGE_KEY}-light` || key === `${STORAGE_KEY}-dark`;
+  const isPaletteStorageKey = key === `${STORAGE_KEY}-light` || key === `${STORAGE_KEY}-dark`;
   const storageKey = isPaletteStorageKey ? STORAGE_KEY : key;
 
   return {

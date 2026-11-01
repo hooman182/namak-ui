@@ -16,15 +16,18 @@ import type { ThemeOptions } from './types';
 
 // ----------------------------------------------------------------------
 
-function createExtraPalette(
-  name: Exclude<PaletteName, 'light' | 'dark'>
-) {
+function createExtraPalette(name: Exclude<PaletteName, 'light' | 'dark'>) {
   const { palette: colors, colorScheme, background } = PALETTES[name];
 
   return {
     ...(colorScheme === 'dark' ? palette.dark : palette.light),
     primary: createPaletteChannel(colors.primary),
     secondary: createPaletteChannel(colors.secondary),
+    info: createPaletteChannel(colors.info),
+    success: createPaletteChannel(colors.success),
+    warning: createPaletteChannel(colors.warning),
+    error: createPaletteChannel(colors.error),
+    grey: createPaletteChannel(colors.grey),
     background: createPaletteChannel(background),
   };
 }
@@ -77,6 +80,26 @@ export const baseTheme: ThemeOptions = {
       palette: createExtraPalette('ember'),
       shadows: shadows.dark,
       customShadows: customShadows.dark,
+    },
+    slate: {
+      palette: createExtraPalette('slate'),
+      shadows: shadows.light,
+      customShadows: customShadows.light,
+    },
+    plum: {
+      palette: createExtraPalette('plum'),
+      shadows: shadows.light,
+      customShadows: customShadows.light,
+    },
+    blue: {
+      palette: createExtraPalette('blue'),
+      shadows: shadows.light,
+      customShadows: customShadows.light,
+    },
+    mist: {
+      palette: createExtraPalette('mist'),
+      shadows: shadows.light,
+      customShadows: customShadows.light,
     },
   },
   components,

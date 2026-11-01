@@ -38,6 +38,10 @@ export const themeConfig: ThemeConfig = {
     midnight: PALETTES.midnight.palette,
     aurora: PALETTES.aurora.palette,
     ember: PALETTES.ember.palette,
+    slate: PALETTES.slate.palette,
+    plum: PALETTES.plum.palette,
+    blue: PALETTES.blue.palette,
+    mist: PALETTES.mist.palette,
   },
   /** **************************************
    * Css variables

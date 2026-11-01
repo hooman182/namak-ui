@@ -25,7 +25,11 @@ export type ThemeColorScheme =
   | 'sunset'
   | 'midnight'
   | 'aurora'
-  | 'ember';
+  | 'ember'
+  | 'slate'
+  | 'plum'
+  | 'blue'
+  | 'mist';
 
 export type PaletteLabel = {
   label: string;

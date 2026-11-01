@@ -23,6 +23,10 @@ const PALETTE_NAMES: PaletteName[] = [
   'midnight',
   'aurora',
   'ember',
+  'slate',
+  'plum',
+  'blue',
+  'mist',
 ];
 
 // ----------------------------------------------------------------------

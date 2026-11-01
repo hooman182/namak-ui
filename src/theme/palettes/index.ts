@@ -25,7 +25,11 @@ export type PaletteName =
   | 'sunset'
   | 'midnight'
   | 'aurora'
-  | 'ember';
+  | 'ember'
+  | 'slate'
+  | 'plum'
+  | 'blue'
+  | 'mist';
 
 type PaletteEntry = {
   label: string;
@@ -431,6 +435,190 @@ export const PALETTES: Record<PaletteName, PaletteEntry> = {
       common,
     },
   },
+  slate: {
+    label: 'Slate',
+    icon: '🪨',
+    colorScheme: 'light',
+    mode: 'light',
+    background: {
+      paper: '#F6F9FA',
+      default: '#CCDCDF',
+      neutral: '#9BA8AB',
+    },
+    palette: {
+      primary: {
+        lighter: '#CCDCDF',
+        light: '#9BA8AB',
+        main: '#4A5C6A',
+        dark: '#253745',
+        darker: '#11212D',
+        contrastText: '#FFFFFF',
+      },
+      secondary: {
+        lighter: '#9BA8AB',
+        light: '#4A5C6A',
+        main: '#253745',
+        dark: '#11212D',
+        darker: '#06141B',
+        contrastText: '#FFFFFF',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey: {
+        '50': '#F6F9FA',
+        '100': '#E8EEF0',
+        '200': '#CCDCDF',
+        '300': '#9BA8AB',
+        '400': '#84939C',
+        '500': '#6C7E88',
+        '600': '#4A5C6A',
+        '700': '#253745',
+        '800': '#11212D',
+        '900': '#06141B',
+      },
+      common,
+    },
+  },
+  plum: {
+    label: 'Plum',
+    icon: '🍇',
+    colorScheme: 'light',
+    mode: 'light',
+    background: {
+      paper: '#FFF9F7',
+      default: '#FBE4D8',
+      neutral: '#DFB6B2',
+    },
+    palette: {
+      primary: {
+        lighter: '#FBE4D8',
+        light: '#DFB6B2',
+        main: '#854F6C',
+        dark: '#522B5B',
+        darker: '#2B124C',
+        contrastText: '#FFFFFF',
+      },
+      secondary: {
+        lighter: '#DFB6B2',
+        light: '#854F6C',
+        main: '#522B5B',
+        dark: '#2B124C',
+        darker: '#190019',
+        contrastText: '#FFFFFF',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey: {
+        '50': '#FFF9F7',
+        '100': '#FBE4D8',
+        '200': '#DFB6B2',
+        '300': '#B8818A',
+        '400': '#985D72',
+        '500': '#854F6C',
+        '600': '#6B3D61',
+        '700': '#522B5B',
+        '800': '#2B124C',
+        '900': '#190019',
+      },
+      common,
+    },
+  },
+  blue: {
+    label: 'Blue',
+    icon: '🩵',
+    colorScheme: 'light',
+    mode: 'light',
+    background: {
+      paper: '#F5FAFF',
+      default: '#C1E8FF',
+      neutral: '#7DA0CA',
+    },
+    palette: {
+      primary: {
+        lighter: '#C1E8FF',
+        light: '#7DA0CA',
+        main: '#052659',
+        dark: '#021024',
+        darker: '#021024',
+        contrastText: '#FFFFFF',
+      },
+      secondary: {
+        lighter: '#C1E8FF',
+        light: '#7DA0CA',
+        main: '#5483B3',
+        dark: '#052659',
+        darker: '#021024',
+        contrastText: '#FFFFFF',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey: {
+        '50': '#F5FAFF',
+        '100': '#E5F3FF',
+        '200': '#C1E8FF',
+        '300': '#A8CFEA',
+        '400': '#7DA0CA',
+        '500': '#648EBB',
+        '600': '#5483B3',
+        '700': '#2E6097',
+        '800': '#052659',
+        '900': '#021024',
+      },
+      common,
+    },
+  },
+  mist: {
+    label: 'Mist',
+    icon: '🌫️',
+    colorScheme: 'light',
+    mode: 'light',
+    background: {
+      paper: '#FFFFFF',
+      default: '#F1F7F7',
+      neutral: '#D5E5E5',
+    },
+    palette: {
+      primary: {
+        lighter: '#F7CBCA',
+        light: '#B0D7D8',
+        main: '#5D6B6B',
+        dark: '#4A5555',
+        darker: '#4A5555',
+        contrastText: '#FFFFFF',
+      },
+      secondary: {
+        lighter: '#F7CBCA',
+        light: '#DDD3D3',
+        main: '#B0D7D8',
+        dark: '#5D6B6B',
+        darker: '#4A5555',
+        contrastText: '#253333',
+      },
+      info,
+      success,
+      warning,
+      error,
+      grey: {
+        '50': '#FCF7F7',
+        '100': '#F7CBCA',
+        '200': '#F1F7F7',
+        '300': '#DDD3D3',
+        '400': '#D5E5E5',
+        '500': '#C5DEDF',
+        '600': '#B0D7D8',
+        '700': '#91B9BA',
+        '800': '#5D6B6B',
+        '900': '#4A5555',
+      },
+      common,
+    },
+  },
 };
 
 /** Labels keyed by palette name */
@@ -444,4 +632,8 @@ export const PALETTE_LABELS: Record<PaletteName, string> = {
   midnight: PALETTES.midnight.label,
   aurora: PALETTES.aurora.label,
   ember: PALETTES.ember.label,
+  slate: PALETTES.slate.label,
+  plum: PALETTES.plum.label,
+  blue: PALETTES.blue.label,
+  mist: PALETTES.mist.label,
 };

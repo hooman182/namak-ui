@@ -143,7 +143,7 @@ const MuiCssBaseline: Components<Theme>['MuiCssBaseline'] = {
     body: ({ theme }: { theme: Theme }) => ({
       minHeight: '100vh',
       backgroundColor: theme.vars.palette.background.default,
-      backgroundImage: `radial-gradient(ellipse at 0% 0%, ${varAlpha(theme.vars.palette.primary.lightChannel, 0.16)} 0%, transparent 58%), radial-gradient(ellipse at 100% 100%, ${varAlpha(theme.vars.palette.secondary.lightChannel, 0.12)} 0%, transparent 56%), linear-gradient(135deg, ${varAlpha(theme.vars.palette.primary.lightChannel, 0.06)} 0%, transparent 65%)`,
+      backgroundImage: `radial-gradient(ellipse at 0% 0%, ${varAlpha(theme.vars.palette.primary.lightChannel, 0.28)} 0%, transparent 58%), radial-gradient(ellipse at 100% 100%, ${varAlpha(theme.vars.palette.secondary.lightChannel, 0.22)} 0%, transparent 56%), linear-gradient(135deg, ${varAlpha(theme.vars.palette.primary.lightChannel, 0.1)} 0%, transparent 65%)`,
       backgroundAttachment: 'fixed',
       backgroundRepeat: 'no-repeat',
     }),
