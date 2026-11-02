@@ -33,6 +33,8 @@ import type { LayoutSectionProps } from '../core/layout-section';
 
 type LayoutBaseProps = Pick<LayoutSectionProps, 'sx' | 'children' | 'cssVars'>;
 
+// ----------------------------------------------------------------------
+
 export type DashboardLayoutProps = LayoutBaseProps & {
   layoutQuery?: Breakpoint;
   slotProps?: {
@@ -40,6 +42,8 @@ export type DashboardLayoutProps = LayoutBaseProps & {
     main?: MainSectionProps;
   };
 };
+
+// ----------------------------------------------------------------------
 
 export function DashboardLayout({
   sx,
@@ -148,6 +152,7 @@ export function DashboardLayout({
       cssVars={{ ...dashboardLayoutVars(theme, navCollapsed), ...cssVars }}
       sx={[
         {
+          background: 'var(--layout-background)',
           [`& .${layoutClasses.sidebarContainer}`]: {
             [theme.breakpoints.up(layoutQuery)]: {
               paddingInlineStart: 'var(--layout-nav-vertical-width)',

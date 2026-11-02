@@ -26,17 +26,11 @@ import type {
  */
 declare module '@mui/material/styles' {
   interface ColorSchemeOverrides {
+    blue: true;
     ocean: true;
     forest: true;
-    rose: true;
-    sunset: true;
-    midnight: true;
-    aurora: true;
-    ember: true;
     slate: true;
-    plum: true;
-    blue: true;
-    mist: true;
+    midnight: true;
   }
 
   // grey

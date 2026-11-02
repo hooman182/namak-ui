@@ -2,11 +2,11 @@ import type { Theme, SxProps, CSSObject } from '@mui/material/styles';
 
 import { mergeClasses } from 'minimal-shared/utils';
 
-import { styled } from '@mui/material/styles';
 import GlobalStyles from '@mui/material/GlobalStyles';
+import { styled, useColorScheme } from '@mui/material/styles';
 
 import { layoutClasses } from './classes';
-import { layoutSectionVars } from './css-vars';
+import { resolveSchemeMode, layoutSectionVars, layoutBackgroundSelectors } from './css-vars';
 
 // ----------------------------------------------------------------------
 
@@ -29,8 +29,15 @@ export function LayoutSection({
   className,
   ...other
 }: LayoutSectionProps) {
+  const { colorScheme } = useColorScheme();
+
   const inputGlobalStyles = (
-    <GlobalStyles styles={(theme) => ({ body: { ...layoutSectionVars(theme), ...cssVars } })} />
+    <GlobalStyles
+      styles={(theme) => ({
+        body: { ...layoutSectionVars(theme, resolveSchemeMode(theme, colorScheme)), ...cssVars },
+        ...layoutBackgroundSelectors,
+      })}
+    />
   );
 
   return (
@@ -66,7 +73,9 @@ export function LayoutSection({
 
 // ----------------------------------------------------------------------
 
-const LayoutRoot = styled('div')``;
+const LayoutRoot = styled('div')(() => ({
+  background: 'var(--layout-background)',
+}));
 
 const LayoutSidebarContainer = styled('div')(() => ({
   display: 'flex',

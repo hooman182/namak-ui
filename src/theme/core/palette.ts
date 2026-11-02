@@ -3,6 +3,7 @@ import type { PaletteColor, ColorSystemOptions, PaletteColorChannel } from '@mui
 import { varAlpha, createPaletteChannel } from 'minimal-shared/utils';
 
 import { themeConfig } from '../theme-config';
+import { darkGrey } from '../palettes/shared';
 
 import type { ThemeColorScheme } from '../types';
 
@@ -90,29 +91,21 @@ export const grey = createPaletteChannel(themeConfig.palette.light.grey);
 // Text color
 export const text = {
   light: createPaletteChannel({
-    primary: '#302E3D',
-    secondary: '#6E6A7D',
-    disabled: '#9692A6',
+    primary: '#1A222B',
+    secondary: '#66717E',
+    disabled: '#8F9AA7',
   }),
   dark: createPaletteChannel({
-    primary: '#F4F6F8',
-    secondary: '#C4CDD5',
-    disabled: '#919EAB',
+    primary: '#F0F3F7',
+    secondary: '#B4BEC9',
+    disabled: '#66727F',
   }),
 };
 
-// Background color
+// Background color (kept in sync with the `light` / `dark` palette modules)
 export const background = {
-  light: createPaletteChannel({
-    paper: '#FFFFFF',
-    default: '#F7F8FC',
-    neutral: '#EEF1F7',
-  }),
-  dark: createPaletteChannel({
-    paper: '#20212B',
-    default: '#181922',
-    neutral: '#2A2B37',
-  }),
+  light: createPaletteChannel(themeConfig.background.light),
+  dark: createPaletteChannel(themeConfig.background.dark),
 };
 
 // Base action color
@@ -129,7 +122,7 @@ export const baseAction = {
 // Action color
 export const action = {
   light: { ...baseAction, active: grey[600] },
-  dark: { ...baseAction, active: '#C4CDD5' },
+  dark: { ...baseAction, active: '#B4BEC9' },
 };
 
 // ----------------------------------------------------------------------
@@ -147,18 +140,7 @@ export const basePalette = {
   divider: varAlpha(grey['500Channel'], 0.2),
 };
 
-const darkGrey = createPaletteChannel({
-  '50': '#191722',
-  '100': '#211F2D',
-  '200': '#302D3D',
-  '300': '#454253',
-  '400': '#646173',
-  '500': '#898699',
-  '600': '#AAA7B8',
-  '700': '#C7C4D2',
-  '800': '#E0DEE8',
-  '900': '#F5F3FA',
-});
+const darkGreyPalette = createPaletteChannel(darkGrey);
 
 export const palette: Partial<Record<ThemeColorScheme, ColorSystemOptions['palette']>> = {
   light: {
@@ -175,10 +157,10 @@ export const palette: Partial<Record<ThemeColorScheme, ColorSystemOptions['palet
     warning,
     error,
     common,
-    grey: darkGrey,
+    grey: darkGreyPalette,
     text: text.dark,
     background: background.dark,
     action: action.dark,
-    divider: varAlpha(darkGrey['500Channel'], 0.2),
+    divider: varAlpha(darkGreyPalette['500Channel'], 0.2),
   },
 };

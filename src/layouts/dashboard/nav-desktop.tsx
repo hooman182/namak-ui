@@ -9,6 +9,8 @@ import { NavContent } from './nav-content';
 
 import type { NavContentProps } from './nav-content';
 
+// ----------------------------------------------------------------------
+
 export function NavDesktop({
   sx,
   data,

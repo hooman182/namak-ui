@@ -1,9 +1,11 @@
 import type { CardProps } from '@mui/material/Card';
 import type { ChartOptions } from 'src/components/chart';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Card from '@mui/material/Card';
+import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
-import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
 
 import { Chart, useChart } from 'src/components/chart';
 
@@ -27,8 +29,8 @@ export function AnalyticsWebsiteVisits({ title, subheader, chart, sx, ...other }
   const theme = useTheme();
 
   const chartColors = chart.colors ?? [
-    hexAlpha(theme.palette.primary.dark, 0.8),
-    hexAlpha(theme.palette.warning.main, 0.8),
+    varAlpha(theme.vars.palette.primary.darkChannel, 0.8),
+    varAlpha(theme.vars.palette.warning.mainChannel, 0.8),
   ];
 
   const chartOptions = useChart({

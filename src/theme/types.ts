@@ -6,6 +6,7 @@ import type {
   ThemeOptions as MuiThemeOptions,
 } from '@mui/material/styles';
 
+import type { PaletteName } from './palettes';
 import type { CustomShadows } from './core/custom-shadows';
 
 // ----------------------------------------------------------------------
@@ -17,19 +18,8 @@ import type { CustomShadows } from './core/custom-shadows';
  * @see https://github.com/mui/material-ui/blob/master/packages/mui-material/src/styles/createTheme.ts
  */
 
-export type ThemeColorScheme =
-  | SupportedColorScheme
-  | 'ocean'
-  | 'forest'
-  | 'rose'
-  | 'sunset'
-  | 'midnight'
-  | 'aurora'
-  | 'ember'
-  | 'slate'
-  | 'plum'
-  | 'blue'
-  | 'mist';
+/** Every palette registered in `src/theme/palettes` is a color scheme */
+export type ThemeColorScheme = SupportedColorScheme | PaletteName;
 
 export type PaletteLabel = {
   label: string;

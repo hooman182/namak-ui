@@ -10,6 +10,8 @@ import { NavItemLink } from './nav-item-link';
 
 import type { NavItem } from '../nav-config-dashboard';
 
+// ----------------------------------------------------------------------
+
 export function NavMobileBottom({
   data,
   layoutQuery,

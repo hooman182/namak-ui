@@ -59,15 +59,15 @@ const baseChartOptions = (theme: Theme): ChartOptions => {
      * https://apexcharts.com/docs/options/colors/
      *************************************** */
     colors: [
-      theme.palette.primary.main,
-      theme.palette.warning.main,
-      theme.palette.info.main,
-      theme.palette.error.main,
-      theme.palette.success.main,
-      theme.palette.warning.dark,
-      theme.palette.success.darker,
-      theme.palette.info.dark,
-      theme.palette.info.darker,
+      theme.vars.palette.primary.main,
+      theme.vars.palette.warning.main,
+      theme.vars.palette.info.main,
+      theme.vars.palette.error.main,
+      theme.vars.palette.success.main,
+      theme.vars.palette.warning.dark,
+      theme.vars.palette.success.darker,
+      theme.vars.palette.info.dark,
+      theme.vars.palette.info.darker,
     ],
 
     /** **************************************

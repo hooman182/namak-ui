@@ -9,18 +9,19 @@ import { palette } from './core/palette';
 import { themeConfig } from './theme-config';
 import { components } from './core/components';
 import { typography } from './core/typography';
+import { PALETTES, PALETTE_NAMES } from './palettes';
 import { customShadows } from './core/custom-shadows';
-import { PALETTES, type PaletteName } from './palettes';
 
 import type { ThemeOptions } from './types';
+import type { PaletteName, PaletteEntry } from './palettes';
 
 // ----------------------------------------------------------------------
 
-function createExtraPalette(name: Exclude<PaletteName, 'light' | 'dark'>) {
-  const { palette: colors, colorScheme, background } = PALETTES[name];
-
+function createExtraPalette({ palette: colors, mode, background }: PaletteEntry) {
   return {
-    ...(colorScheme === 'dark' ? palette.dark : palette.light),
+    ...(mode === 'dark' ? palette.dark : palette.light),
+    // `mode` is required for MUI and for scheme-aware layout styling (e.g. the background gradient)
+    mode,
     primary: createPaletteChannel(colors.primary),
     secondary: createPaletteChannel(colors.secondary),
     info: createPaletteChannel(colors.info),
@@ -32,76 +33,36 @@ function createExtraPalette(name: Exclude<PaletteName, 'light' | 'dark'>) {
   };
 }
 
+/**
+ * Color scheme options for a palette in the registry.
+ * `light` and `dark` use the base palette; every other palette is generated from its entry.
+ */
+function createColorScheme(name: PaletteName) {
+  if (name === 'light' || name === 'dark') {
+    return {
+      palette: palette[name],
+      shadows: shadows[name],
+      customShadows: customShadows[name],
+    };
+  }
+
+  const entry = PALETTES[name];
+
+  return {
+    palette: createExtraPalette(entry),
+    shadows: shadows[entry.mode],
+    customShadows: customShadows[entry.mode],
+  };
+}
+
+const colorSchemes = Object.fromEntries(
+  PALETTE_NAMES.map((name) => [name, createColorScheme(name)])
+) as ThemeOptions['colorSchemes'];
+
 // ----------------------------------------------------------------------
 
 export const baseTheme: ThemeOptions = {
-  colorSchemes: {
-    light: {
-      palette: palette.light,
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    dark: {
-      palette: palette.dark,
-      shadows: shadows.dark,
-      customShadows: customShadows.dark,
-    },
-    ocean: {
-      palette: createExtraPalette('ocean'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    forest: {
-      palette: createExtraPalette('forest'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    rose: {
-      palette: createExtraPalette('rose'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    sunset: {
-      palette: createExtraPalette('sunset'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    midnight: {
-      palette: createExtraPalette('midnight'),
-      shadows: shadows.dark,
-      customShadows: customShadows.dark,
-    },
-    aurora: {
-      palette: createExtraPalette('aurora'),
-      shadows: shadows.dark,
-      customShadows: customShadows.dark,
-    },
-    ember: {
-      palette: createExtraPalette('ember'),
-      shadows: shadows.dark,
-      customShadows: customShadows.dark,
-    },
-    slate: {
-      palette: createExtraPalette('slate'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    plum: {
-      palette: createExtraPalette('plum'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    blue: {
-      palette: createExtraPalette('blue'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-    mist: {
-      palette: createExtraPalette('mist'),
-      shadows: shadows.light,
-      customShadows: customShadows.light,
-    },
-  },
+  colorSchemes,
   components,
   typography,
   shape: { borderRadius: 10 },

@@ -11,12 +11,16 @@ import { RouterLink } from 'src/routes/components';
 
 import type { NavItem } from '../nav-config-dashboard';
 
+// ----------------------------------------------------------------------
+
 type NavItemLinkProps = {
   item: NavItem;
   variant: 'desktop' | 'mobile' | 'mobileBottom';
   collapsed?: boolean;
   onClick?: () => void;
 };
+
+// ----------------------------------------------------------------------
 
 export function NavItemLink({ item, variant, collapsed = false, onClick }: NavItemLinkProps) {
   const pathname = usePathname();

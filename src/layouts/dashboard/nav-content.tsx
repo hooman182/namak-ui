@@ -15,6 +15,8 @@ import { NavItemLink } from './nav-item-link';
 
 import type { NavItem } from '../nav-config-dashboard';
 
+// ----------------------------------------------------------------------
+
 export type NavContentProps = {
   data: NavItem[];
   slots?: {
@@ -23,6 +25,8 @@ export type NavContentProps = {
   };
   sx?: SxProps<Theme>;
 };
+
+// ----------------------------------------------------------------------
 
 export function NavContent({
   data,

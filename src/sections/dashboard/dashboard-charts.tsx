@@ -26,7 +26,7 @@ export function DashboardLettersByMonthChart({
   const hasData = incoming.some(Boolean) || outgoing.some(Boolean);
 
   const chartOptions = useChart({
-    colors: [theme.palette.primary.main, theme.palette.secondary.main],
+    colors: [theme.vars.palette.primary.main, theme.vars.palette.secondary.main],
     xaxis: { categories },
     yaxis: { labels: { formatter: (value: number) => fNumber(value) } },
     plotOptions: { bar: { columnWidth: '45%' } },
@@ -67,7 +67,7 @@ type DirectionChartProps = {
 export function DashboardLetterDirectionsChart({ incoming, outgoing }: DirectionChartProps) {
   const theme = useTheme();
   const hasData = incoming + outgoing > 0;
-  const colors = [theme.palette.primary.main, theme.palette.secondary.main];
+  const colors = [theme.vars.palette.primary.main, theme.vars.palette.secondary.main];
 
   const chartOptions = useChart({
     labels: ['وارده', 'صادره'],

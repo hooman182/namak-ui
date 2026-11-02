@@ -10,11 +10,17 @@
       (function () {
         try {
           var scheme = localStorage.getItem('minimal__palette');
-          if (['light', 'dark', 'ocean', 'forest'].includes(scheme)) {
+          if (['light', 'dark', 'blue', 'ocean', 'forest', 'slate', 'midnight'].includes(scheme)) {
             document.documentElement.setAttribute('data-color-scheme', scheme);
           }
+
+          var background = localStorage.getItem('minimal__background');
+          document.documentElement.setAttribute(
+            'data-layout-background',
+            background === 'solid' ? 'solid' : 'gradient'
+          );
         } catch (error) {
-          console.warn('Unable to restore the saved color palette.', error);
+          console.warn('Unable to restore the saved appearance settings.', error);
         }
       })();
     </script>

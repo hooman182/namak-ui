@@ -122,6 +122,7 @@ export function AuthLayout({
       sx={[
         (theme) => ({
           position: 'relative',
+          background: 'var(--layout-background)',
           '&::before': backgroundStyles(),
         }),
         ...(Array.isArray(sx) ? sx : [sx]),

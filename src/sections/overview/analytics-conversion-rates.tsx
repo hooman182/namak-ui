@@ -1,9 +1,11 @@
 import type { CardProps } from '@mui/material/Card';
 import type { ChartOptions } from 'src/components/chart';
 
+import { varAlpha } from 'minimal-shared/utils';
+
 import Card from '@mui/material/Card';
+import { useTheme } from '@mui/material/styles';
 import CardHeader from '@mui/material/CardHeader';
-import { useTheme, alpha as hexAlpha } from '@mui/material/styles';
 
 import { fNumber } from 'src/utils/format-number';
 
@@ -29,8 +31,8 @@ export function AnalyticsConversionRates({ title, subheader, chart, sx, ...other
   const theme = useTheme();
 
   const chartColors = chart.colors ?? [
-    theme.palette.primary.dark,
-    hexAlpha(theme.palette.primary.dark, 0.24),
+    theme.vars.palette.primary.dark,
+    varAlpha(theme.vars.palette.primary.darkChannel, 0.24),
   ];
 
   const chartOptions = useChart({

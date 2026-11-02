@@ -41,7 +41,7 @@ export function AnalyticsWidgetSummary({
 }: Props) {
   const theme = useTheme();
 
-  const chartColors = [theme.palette[color].dark];
+  const chartColors = [theme.vars.palette[color].dark];
 
   const chartOptions = useChart({
     chart: { sparkline: { enabled: true } },

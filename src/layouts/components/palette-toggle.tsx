@@ -3,38 +3,21 @@ import type { IconButtonProps } from '@mui/material/IconButton';
 import { usePopover } from 'minimal-shared/hooks';
 
 import Box from '@mui/material/Box';
+import { Divider } from '@mui/material';
 import Popover from '@mui/material/Popover';
 import MenuList from '@mui/material/MenuList';
 import IconButton from '@mui/material/IconButton';
 import MenuItem, { menuItemClasses } from '@mui/material/MenuItem';
 
 import { usePalette } from 'src/contexts/palette-context';
-import { PALETTES, type PaletteName } from 'src/theme/palettes';
-
-// ----------------------------------------------------------------------
-
-const PALETTE_NAMES: PaletteName[] = [
-  'light',
-  'dark',
-  'ocean',
-  'forest',
-  'rose',
-  'sunset',
-  'midnight',
-  'aurora',
-  'ember',
-  'slate',
-  'plum',
-  'blue',
-  'mist',
-];
+import { PALETTES, PALETTE_NAMES, type PaletteName } from 'src/theme/palettes';
 
 // ----------------------------------------------------------------------
 
 export type PaletteToggleProps = IconButtonProps;
 
 export function PaletteToggle({ sx, ...other }: PaletteToggleProps) {
-  const { scheme, setScheme } = usePalette();
+  const { scheme, setScheme, backgroundMode, toggleBackgroundMode } = usePalette();
   const { open, anchorEl, onClose, onOpen } = usePopover();
 
   const handleChangeScheme = (newScheme: PaletteName) => {
@@ -95,6 +78,23 @@ export function PaletteToggle({ sx, ...other }: PaletteToggleProps) {
             </Box>
           </MenuItem>
         ))}
+
+        <Divider sx={{borderStyle:'dashed'}}/>
+        {/* Background mode toggle */}
+        <MenuItem key="gradient" selected={backgroundMode !== 'solid'} onClick={() => {
+          toggleBackgroundMode();
+          onClose();
+        }}>
+          <Box component="span" sx={{ px: 1, py: 0.5, borderRadius: 0.75, bgcolor: 'background.paper', width: 40, height: 20 }} />
+          <span>پس‌زمینه رنگی</span>
+        </MenuItem>
+        <MenuItem key="solid" selected={backgroundMode === 'solid'} onClick={() => {
+          toggleBackgroundMode();
+          onClose();
+        }}>
+          <Box component="span" sx={{ px: 1, py: 0.5, borderRadius: 0.75, bgcolor: 'var(--layout-bg-solid)', width: 40, height: 20 }} />
+          <span style={{ fontWeight: 'fontWeightSemiBold' }}>پس‌زمینه یکدست</span>
+        </MenuItem>
       </MenuList>
     </Popover>
   );

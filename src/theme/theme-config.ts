@@ -1,6 +1,7 @@
-import { PALETTES, type PaletteName, type PaletteColorSet } from './palettes';
+import { PALETTES, PALETTE_NAMES } from './palettes';
 
 import type { ThemeCssVariables } from './types';
+import type { PaletteName, PaletteEntry, PaletteColorSet } from './palettes';
 
 // ----------------------------------------------------------------------
 
@@ -9,7 +10,18 @@ type ThemeConfig = {
   cssVariables: ThemeCssVariables;
   fontFamily: Record<'primary' | 'secondary', string>;
   palette: Record<PaletteName, PaletteColorSet>;
+  background: Record<PaletteName, PaletteEntry['background']>;
 };
+
+// ----------------------------------------------------------------------
+
+const palette = Object.fromEntries(
+  PALETTE_NAMES.map((name) => [name, PALETTES[name].palette])
+) as Record<PaletteName, PaletteColorSet>;
+
+const background = Object.fromEntries(
+  PALETTE_NAMES.map((name) => [name, PALETTES[name].background])
+) as Record<PaletteName, PaletteEntry['background']>;
 
 // ----------------------------------------------------------------------
 
@@ -28,21 +40,8 @@ export const themeConfig: ThemeConfig = {
   /** **************************************
    * Palette (from registry)
    *************************************** */
-  palette: {
-    light: PALETTES.light.palette,
-    dark: PALETTES.dark.palette,
-    ocean: PALETTES.ocean.palette,
-    forest: PALETTES.forest.palette,
-    rose: PALETTES.rose.palette,
-    sunset: PALETTES.sunset.palette,
-    midnight: PALETTES.midnight.palette,
-    aurora: PALETTES.aurora.palette,
-    ember: PALETTES.ember.palette,
-    slate: PALETTES.slate.palette,
-    plum: PALETTES.plum.palette,
-    blue: PALETTES.blue.palette,
-    mist: PALETTES.mist.palette,
-  },
+  palette,
+  background,
   /** **************************************
    * Css variables
    *************************************** */
