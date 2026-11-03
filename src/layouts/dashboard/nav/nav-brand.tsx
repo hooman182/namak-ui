@@ -25,7 +25,11 @@ export function NavBrand({ collapsed = false, title = 'نامک', href }: NavBra
         minHeight: 48,
       }}
     >
-      <Logo href={href} sx={{ width: 40, height: 40 }} />
+      <Box sx={{ position: 'relative', width: 48, height: 48, flexShrink: 0 }}>
+        <Logo href={href} sx={{ width: 48, height: 48 }} />
+        <Sparkle top={-2} insetInlineStart="68%" size={6} duration={2.8} delay={0.3} />
+        <Sparkle top={36} insetInlineStart={-3} size={5} duration={3.4} delay={1.2} />
+      </Box>
 
       {!collapsed && (
         <Box sx={{ position: 'relative', display: 'inline-flex', alignItems: 'center' }}>

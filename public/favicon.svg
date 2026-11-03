@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 280" fill="none">
+  <defs>
+    <linearGradient id="namak" x1="89" y1="66" x2="231" y2="214" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A49BF2" />
+      <stop offset=".55" stop-color="#5B4FD1" />
+      <stop offset="1" stop-color="#2F2873" />
+    </linearGradient>
+  </defs>
+  <path
+    d="M89 66V172q0 42 42 42h58q42 0 42-42v-38"
+    stroke="url(#namak)"
+    stroke-width="44"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  />
+  <circle cx="160" cy="86" r="22" fill="#5B4FD1" />
+</svg>
