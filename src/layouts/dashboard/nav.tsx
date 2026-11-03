@@ -1,6 +1,6 @@
-export { NavMobile } from './nav-mobile';
+export * from './nav/index';
 
-export { NavContent } from './nav-content';
+export { NavMobile } from './nav-mobile';
 
 export { NavDesktop } from './nav-desktop';
 

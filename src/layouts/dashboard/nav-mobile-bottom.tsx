@@ -4,9 +4,11 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
 
+import { usePathname } from 'src/routes/hooks';
+
 import { Iconify } from 'src/components/iconify';
 
-import { NavItemLink } from './nav-item-link';
+import { NavMobileBottomItem } from './nav';
 
 import type { NavItem } from '../nav-config-dashboard';
 
@@ -22,6 +24,7 @@ export function NavMobileBottom({
   onMoreClick: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }) {
   const theme = useTheme();
+  const pathname = usePathname();
 
   return (
     <Box
@@ -48,6 +51,7 @@ export function NavMobileBottom({
         component="ul"
         sx={{
           display: 'flex',
+          flexDirection: 'row-reverse',
           alignItems: 'stretch',
           justifyContent: 'space-around',
           m: 0,
@@ -57,7 +61,7 @@ export function NavMobileBottom({
       >
         {data.map((item) => (
           <Box component="li" key={item.title} sx={{ flex: 1 }}>
-            <NavItemLink item={item} variant="mobileBottom" />
+            <NavMobileBottomItem item={item} isActive={item.path === pathname} />
           </Box>
         ))}
         <Box component="li" sx={{ flex: 1 }}>

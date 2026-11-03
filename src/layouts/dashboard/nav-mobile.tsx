@@ -5,7 +5,7 @@ import Popover from '@mui/material/Popover';
 
 import { usePathname } from 'src/routes/hooks';
 
-import { NavItemLink } from './nav-item-link';
+import { NavMobileItem } from './nav';
 
 import type { NavItem } from '../nav-config-dashboard';
 
@@ -48,7 +48,12 @@ export function NavMobile({
     >
       <List disablePadding sx={{ p: 1 }}>
         {data.map((item) => (
-          <NavItemLink key={item.title} item={item} variant="mobile" onClick={onClose} />
+          <NavMobileItem
+            key={item.title}
+            item={item}
+            isActive={item.path === pathname}
+            onClick={onClose}
+          />
         ))}
       </List>
     </Popover>

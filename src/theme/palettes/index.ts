@@ -18,13 +18,13 @@ import type { PaletteEntry } from './types';
  * Adding a palette only requires a new module + one entry here.
  */
 export const PALETTES = {
-  light,
   dark,
+  midnight,
+  light,
   blue,
   ocean,
   forest,
   slate,
-  midnight,
 } satisfies Record<string, PaletteEntry>;
 
 export type PaletteName = keyof typeof PALETTES;
